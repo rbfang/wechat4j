@@ -11,7 +11,7 @@ import wechat4j.message.Message;
 public interface ISendMessageHandler extends MessageHandler {
     String generateTextMessage(String content, Message message);
 
-    String generateImageMessage();
+    String generateImageMessage(String mediaId, Message message);
 
     String generateVoiceMessage();
 

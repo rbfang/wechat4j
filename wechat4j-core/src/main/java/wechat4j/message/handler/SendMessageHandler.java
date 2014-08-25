@@ -3,6 +3,7 @@ package wechat4j.message.handler;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import wechat4j.message.Message;
+import wechat4j.message.TextMessage;
 
 import java.util.Date;
 
@@ -27,8 +28,14 @@ public class SendMessageHandler implements ISendMessageHandler {
         }
     }
 
-    private String generateHeader(String path, Message message) {
-        return replyTemplate.getString(path)
+    /**
+     * Generate message header
+     *
+     * @param message
+     * @return
+     */
+    private String generateHeader(Message message) {
+        return replyTemplate.getString("MessageHeader")
                 .replace("${ToUserName}", addLabel(message.getToUserName()))
                 .replace("${FromUserName}", addLabel(message.getFromUserName()))
                 .replace("${CreateTime}", addLabel(message.getCreateTime()))
@@ -41,12 +48,14 @@ public class SendMessageHandler implements ISendMessageHandler {
 
     @Override
     public String generateTextMessage(String content, Message message) {
-        return generateHeader("TextMessage", message)
+        return replyTemplate.getString("TextMessage")
+                .replace("${MessageHeader}", generateHeader(message))
                 .replace("${Content}", content);
     }
 
     @Override
-    public String generateImageMessage() {
+    public String generateImageMessage(String mediaId, Message message) {
+
         return null;
     }
 

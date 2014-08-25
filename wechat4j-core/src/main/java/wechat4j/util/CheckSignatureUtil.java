@@ -1,7 +1,7 @@
 package wechat4j.util;
 
 import org.apache.commons.lang.StringUtils;
-import wechat4j.Signature;
+import wechat4j.support.bean.Signature;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

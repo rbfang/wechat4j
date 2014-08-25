@@ -7,7 +7,7 @@ import wechat4j.message.*;
 import java.io.InputStream;
 
 /**
- * Receive message operator
+ * Receive message handler
  *
  * @author renbin.fang.
  * @date 2014/8/21.
@@ -89,11 +89,10 @@ public class ReceiveMessageHandler implements IReceiveMessageHandler {
         reloadInputStream(inputStream);
 
         return new LinkMessage(
-                xmlReader.getString("LocationX"),
-                xmlReader.getString("LocationY"),
-                xmlReader.getString("LocationY"),
-                getMessage()
-        );
+                xmlReader.getString("Title"),
+                xmlReader.getString("Description"),
+                xmlReader.getString("Url"),
+                getMessage());
     }
 
     /**

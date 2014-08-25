@@ -1,4 +1,4 @@
-package wechat4j;
+package wechat4j.support.bean;
 
 /**
  * Signature
