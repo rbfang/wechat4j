@@ -25,7 +25,7 @@ public class ReceiveMessageHandler implements IReceiveMessageHandler {
      * @param inputStream
      * @throws ConfigurationException
      */
-    void reloadInputStream(InputStream inputStream) {
+    private void reloadInputStream(InputStream inputStream) {
         xmlReader.clear();
         try {
             xmlReader.load(inputStream);
@@ -38,49 +38,75 @@ public class ReceiveMessageHandler implements IReceiveMessageHandler {
     public TextMessage getTextMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        TextMessage textMessage = new TextMessage();
-        textMessage.setToUserName(xmlReader.getString("ToUserName"));
-        textMessage.setFromUserName(xmlReader.getString("FromUserName"));
-        textMessage.setCreateTime(xmlReader.getString("CreateTime"));
-        textMessage.setMsgType(xmlReader.getString("MsgType"));
-        textMessage.setContent(xmlReader.getString("Content"));
-        textMessage.setMessageId(xmlReader.getString("MsgId"));
-
-        return textMessage;
+        return new TextMessage(
+                xmlReader.getString("Content"),
+                getMessage());
     }
 
     @Override
     public ImageMessage getImageMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        return null;
+        return new ImageMessage(
+                xmlReader.getString("PicUrl"),
+                xmlReader.getString("MediaId"),
+                getMessage());
     }
 
     @Override
     public VoiceMessage getVoiceMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        return null;
+        return new VoiceMessage(
+                xmlReader.getString("MediaId"),
+                getMessage());
     }
 
     @Override
     public VideoMessage getVideoMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        return null;
+        return new VideoMessage(
+                xmlReader.getString("MediaId"),
+                xmlReader.getString("ThumbMediaId"),
+                getMessage());
     }
 
     @Override
     public LocationMessage getMusicMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        return null;
+        return new LocationMessage(
+                xmlReader.getString("LocationX"),
+                xmlReader.getString("LocationY"),
+                Integer.valueOf(xmlReader.getString("Scale")),
+                xmlReader.getString("Label"),
+                getMessage());
     }
 
     @Override
     public LinkMessage getNewsMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
-        return null;
+        return new LinkMessage(
+                xmlReader.getString("LocationX"),
+                xmlReader.getString("LocationY"),
+                xmlReader.getString("LocationY"),
+                getMessage()
+        );
+    }
+
+    /**
+     * Put message header into the base class.
+     *
+     * @return {@link wechat4j.message.Message}
+     */
+    private Message getMessage() {
+        return new Message(
+                xmlReader.getString("ToUserName"),
+                xmlReader.getString("FromUserName"),
+                xmlReader.getString("CreateTime"),
+                xmlReader.getString("MsgType"),
+                xmlReader.getString("MsgId"));
     }
 }

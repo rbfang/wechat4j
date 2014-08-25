@@ -21,8 +21,21 @@ public class ImageMessage extends Message {
      *
      * @param picUrl
      * @param mediaId
+     * @param message
      */
-    public ImageMessage(String picUrl, String mediaId) {
+    public ImageMessage(String picUrl, String mediaId, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
+        this.picUrl = picUrl;
+        this.mediaId = mediaId;
+    }
+
+    public ImageMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String picUrl, String mediaId) {
+        super(toUserName, fromUserName, createTime, msgType, messageId);
         this.picUrl = picUrl;
         this.mediaId = mediaId;
     }

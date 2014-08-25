@@ -1,4 +1,4 @@
-package wechat4j.message.auth;
+package wechat4j;
 
 /**
  * Signature

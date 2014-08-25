@@ -22,7 +22,13 @@ public class VideoMessage extends Message {
      * @param mediaId
      * @param thumbMediaId
      */
-    public VideoMessage(String mediaId, String thumbMediaId) {
+    public VideoMessage(String mediaId, String thumbMediaId, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
         this.mediaId = mediaId;
         this.thumbMediaId = thumbMediaId;
     }

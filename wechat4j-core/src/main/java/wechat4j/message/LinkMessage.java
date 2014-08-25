@@ -24,7 +24,13 @@ public class LinkMessage extends Message {
      * @param description
      * @param url
      */
-    public LinkMessage(String title, String description, String url) {
+    public LinkMessage(String title, String description, String url, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
         this.title = title;
         this.description = description;
         this.url = url;

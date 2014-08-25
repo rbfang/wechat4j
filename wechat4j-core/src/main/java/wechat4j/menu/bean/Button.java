@@ -12,6 +12,13 @@ public class Button implements Serializable {
     private String type;
     private String name;
 
+    public Button() {
+    }
+
+    public Button(String type, String name) {
+        this.type = type;
+        this.name = name;
+    }
 
     public class ViewButton extends Button {
         private String url;

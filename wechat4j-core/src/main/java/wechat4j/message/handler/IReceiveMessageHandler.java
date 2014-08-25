@@ -1,6 +1,5 @@
 package wechat4j.message.handler;
 
-import org.apache.commons.configuration.ConfigurationException;
 import wechat4j.message.*;
 
 import java.io.InputStream;
@@ -13,7 +12,7 @@ import java.io.InputStream;
  */
 public interface IReceiveMessageHandler extends MessageHandler {
 
-    TextMessage getTextMessage(InputStream inputStream) throws ConfigurationException;
+    TextMessage getTextMessage(InputStream inputStream);
 
     ImageMessage getImageMessage(InputStream inputStream);
 

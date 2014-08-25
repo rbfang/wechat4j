@@ -26,7 +26,13 @@ public class LocationMessage extends Message {
      * @param scale
      * @param label
      */
-    public LocationMessage(String locationX, String locationY, Integer scale, String label) {
+    public LocationMessage(String locationX, String locationY, Integer scale, String label, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
         this.locationX = locationX;
         this.locationY = locationY;
         this.scale = scale;

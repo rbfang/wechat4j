@@ -9,6 +9,32 @@ public class RecognitionMessage extends Message {
     private String format;
     private String recognition;
 
+    /**
+     * Constructor
+     */
+    public RecognitionMessage() {
+    }
+
+    /**
+     * Constructor
+     *
+     * @param mediaId
+     * @param format
+     * @param recognition
+     * @param message
+     */
+    public RecognitionMessage(String mediaId, String format, String recognition, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
+        this.mediaId = mediaId;
+        this.format = format;
+        this.recognition = recognition;
+    }
+
     public enum Format {
         AMR("amr");
 

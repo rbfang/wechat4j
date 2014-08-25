@@ -20,7 +20,13 @@ public class TextMessage extends Message {
      *
      * @param content
      */
-    public TextMessage(String content) {
+    public TextMessage(String content, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
         this.content = content;
     }
 

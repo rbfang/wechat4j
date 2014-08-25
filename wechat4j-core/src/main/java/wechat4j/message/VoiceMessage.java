@@ -15,7 +15,13 @@ public class VoiceMessage extends Message {
     public VoiceMessage() {
     }
 
-    public VoiceMessage(String mediaId) {
+    public VoiceMessage(String mediaId, Message message) {
+        super.toUserName = message.getToUserName();
+        super.fromUserName = message.getFromUserName();
+        super.createTime = message.getCreateTime();
+        super.msgType = message.getMsgType();
+        super.messageId = message.getMessageId();
+
         this.mediaId = mediaId;
     }
 

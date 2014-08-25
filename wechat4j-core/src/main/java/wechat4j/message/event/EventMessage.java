@@ -13,6 +13,18 @@ import java.io.Serializable;
 public class EventMessage extends Message implements Serializable {
     private String event;
 
+    public EventMessage() {
+    }
+
+    public EventMessage(String event) {
+        this.event = event;
+    }
+
+    public EventMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String event) {
+        super(toUserName, fromUserName, createTime, msgType, messageId);
+        this.event = event;
+    }
+
     /**
      * Event type
      */
