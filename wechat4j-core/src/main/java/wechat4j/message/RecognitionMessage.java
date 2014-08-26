@@ -1,6 +1,8 @@
 package wechat4j.message;
 
 /**
+ * RecognitionMessage
+ *
  * @author renbin.fang.
  * @date 2014/8/22.
  */

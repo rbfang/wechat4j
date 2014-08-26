@@ -18,8 +18,7 @@ public class Message implements Serializable {
     /**
      * Constructor
      */
-    public Message() {
-    }
+    public Message() {}
 
     /**
      * Use for replying message

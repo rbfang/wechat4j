@@ -1,6 +1,9 @@
 package wechat4j.message.handler;
 
 import wechat4j.message.Message;
+import wechat4j.message.NewsMessage;
+
+import java.util.List;
 
 /**
  * ISendMessageOperator
@@ -13,11 +16,11 @@ public interface ISendMessageHandler extends MessageHandler {
 
     String generateImageMessage(String mediaId, Message message);
 
-    String generateVoiceMessage();
+    String generateVoiceMessage(String mediaId, Message message);
 
-    String generateVideoMessage();
+    String generateVideoMessage(String mediaId, String title, String description, Message message);
 
-    String generateMusicMessage();
+    String generateMusicMessage(String title, String description, String musicUrl, String hQMusicUrl, String thumbMediaId, Message message);
 
-    String generateNewsMessage();
+    String generateNewsMessage(List<NewsMessage> newsMessageList, Message message);
 }
