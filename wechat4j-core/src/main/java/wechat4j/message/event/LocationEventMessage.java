@@ -1,5 +1,7 @@
 package wechat4j.message.event;
 
+import wechat4j.message.Message;
+
 /**
  * @author renbin.fang.
  * @date 2014/8/22.
@@ -22,8 +24,8 @@ public class LocationEventMessage extends EventMessage {
         this.precision = precision;
     }
 
-    public LocationEventMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String event, Double latitude, Double longitude, Double precision) {
-        super(toUserName, fromUserName, createTime, msgType, messageId, event);
+    public LocationEventMessage(EventMessage eventMessage, Double latitude, Double longitude, Double precision) {
+        super(new Message(eventMessage.getToUserName(), eventMessage.getFromUserName(), eventMessage.getCreateTime(), eventMessage.getMsgType()), eventMessage.getEvent());
         this.latitude = latitude;
         this.longitude = longitude;
         this.precision = precision;
