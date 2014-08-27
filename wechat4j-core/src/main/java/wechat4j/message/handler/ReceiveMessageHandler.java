@@ -1,10 +1,12 @@
 package wechat4j.message.handler;
 
-import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.lang.StringUtils;
 import wechat4j.message.*;
 
 import java.io.InputStream;
+
+import static wechat4j.message.Message.ReceivedType;
 
 /**
  * Receive message handler
@@ -12,100 +14,96 @@ import java.io.InputStream;
  * @author renbin.fang.
  * @date 2014/8/21.
  */
-public class ReceiveMessageHandler implements IReceiveMessageHandler {
-    private static XMLConfiguration xmlReader = null;
-
-    static {
-        xmlReader = new XMLConfiguration();
-    }
-
-    /**
-     * Reloads input stream
-     *
-     * @param inputStream
-     * @throws ConfigurationException
-     */
-    private void reloadInputStream(InputStream inputStream) {
-        xmlReader.clear();
-        try {
-            xmlReader.load(inputStream);
-        } catch (ConfigurationException e) {
-            System.out.println(e);
-        }
-    }
+public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
+    private static XMLConfiguration xmlReader;
 
     @Override
-    public TextMessage getTextMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
+    public XMLConfiguration getXmlReader() {
+        if (xmlReader == null) {
+            xmlReader = new XMLConfiguration();
+        }
 
+        return xmlReader;
+    }
+
+
+    @Override
+    public Message getMessage(InputStream inputStream) {
+        reloadInputStream(inputStream);
+        Message message = getMessageHeader();
+        String msgType = message.getMsgType();
+
+        if (StringUtils.equals(msgType, ReceivedType.TEXT.getValue())) {
+
+            return getTextMessage(inputStream);
+
+        } else if (StringUtils.equals(msgType, ReceivedType.IMAGE.getValue())) {
+
+            return getImageMessage(inputStream);
+
+        } else if (StringUtils.equals(msgType, ReceivedType.VOICE.getValue())) {
+
+            return getVoiceMessage(inputStream);
+
+        } else if (StringUtils.equals(msgType, ReceivedType.VIDEO.getValue())) {
+
+            return getVideoMessage(inputStream);
+
+        } else if (StringUtils.equals(msgType, ReceivedType.LOCATION.getValue())) {
+
+            return getLocationMessage(inputStream);
+
+        } else if (StringUtils.equals(msgType, ReceivedType.LINK.getValue())) {
+
+            return getLinkMessage(inputStream);
+
+        }
+
+        return message;
+    }
+
+
+    private TextMessage getTextMessage(InputStream inputStream) {
         return new TextMessage(
                 xmlReader.getString("Content"),
-                getMessage());
+                getMessageHeader());
     }
 
-    @Override
-    public ImageMessage getImageMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
+    private ImageMessage getImageMessage(InputStream inputStream) {
         return new ImageMessage(
                 xmlReader.getString("PicUrl"),
                 xmlReader.getString("MediaId"),
-                getMessage());
+                getMessageHeader());
     }
 
-    @Override
-    public VoiceMessage getVoiceMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
+    private VoiceMessage getVoiceMessage(InputStream inputStream) {
         return new VoiceMessage(
                 xmlReader.getString("MediaId"),
-                getMessage());
+                getMessageHeader());
     }
 
-    @Override
-    public VideoMessage getVideoMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
+    private VideoMessage getVideoMessage(InputStream inputStream) {
         return new VideoMessage(
                 xmlReader.getString("MediaId"),
                 xmlReader.getString("ThumbMediaId"),
-                getMessage());
+                getMessageHeader());
     }
 
-    @Override
-    public LocationMessage getMusicMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
+    private LocationMessage getLocationMessage(InputStream inputStream) {
         return new LocationMessage(
                 xmlReader.getString("LocationX"),
                 xmlReader.getString("LocationY"),
                 Integer.valueOf(xmlReader.getString("Scale")),
                 xmlReader.getString("Label"),
-                getMessage());
+                getMessageHeader());
     }
 
-    @Override
-    public LinkMessage getNewsMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
+    private LinkMessage getLinkMessage(InputStream inputStream) {
         return new LinkMessage(
                 xmlReader.getString("Title"),
                 xmlReader.getString("Description"),
                 xmlReader.getString("Url"),
-                getMessage());
+                getMessageHeader());
     }
 
-    /**
-     * Put message header into the base class.
-     *
-     * @return {@link wechat4j.message.Message}
-     */
-    private Message getMessage() {
-        return new Message(
-                xmlReader.getString("ToUserName"),
-                xmlReader.getString("FromUserName"),
-                xmlReader.getString("CreateTime"),
-                xmlReader.getString("MsgType"),
-                xmlReader.getString("MsgId"));
-    }
 }

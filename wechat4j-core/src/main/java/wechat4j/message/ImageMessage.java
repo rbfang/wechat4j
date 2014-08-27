@@ -55,4 +55,13 @@ public class ImageMessage extends Message {
     public void setMediaId(String mediaId) {
         this.mediaId = mediaId;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("ImageMessage{");
+        sb.append("picUrl='").append(picUrl).append('\'');
+        sb.append(", mediaId='").append(mediaId).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

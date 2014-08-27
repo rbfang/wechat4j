@@ -5,7 +5,6 @@ import org.apache.commons.configuration.XMLConfiguration;
 import wechat4j.message.Message;
 import wechat4j.message.NewsMessage;
 
-import javax.management.StringValueExp;
 import java.util.List;
 
 /**

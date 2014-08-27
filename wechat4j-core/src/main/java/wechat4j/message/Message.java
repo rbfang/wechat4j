@@ -1,6 +1,8 @@
 package wechat4j.message;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The parent of messages
@@ -18,7 +20,8 @@ public class Message implements Serializable {
     /**
      * Constructor
      */
-    public Message() {}
+    public Message() {
+    }
 
     /**
      * Use for replying message

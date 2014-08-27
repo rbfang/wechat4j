@@ -94,5 +94,6 @@ public class SendMessageHandlerTest {
         System.out.println(sendMessageHandler.generateNewsMessage(
                 newsMessageList,
                 message));
+
     }
 }
