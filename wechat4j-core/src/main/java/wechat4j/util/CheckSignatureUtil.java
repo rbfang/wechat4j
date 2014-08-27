@@ -55,4 +55,8 @@ public class CheckSignatureUtil {
             return key;
         }
     }
+
+    private CheckSignatureUtil() {
+        throw new Error("Please do not instantiate this class");
+    }
 }

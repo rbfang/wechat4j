@@ -1,12 +1,9 @@
 package wechat4j.message.handler;
 
 import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.commons.lang.StringUtils;
 import wechat4j.message.*;
 
 import java.io.InputStream;
-
-import static wechat4j.message.Message.ReceivedType;
 
 /**
  * Receive message handler
@@ -16,6 +13,8 @@ import static wechat4j.message.Message.ReceivedType;
  */
 public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
     private static XMLConfiguration xmlReader;
+
+    private Class<? extends MessageHandler> clz;
 
     @Override
     public XMLConfiguration getXmlReader() {
@@ -30,53 +29,27 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
     @Override
     public Message getMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
+
         Message message = getMessageHeader();
-        String msgType = message.getMsgType();
-
-        if (StringUtils.equals(msgType, ReceivedType.TEXT.getValue())) {
-
-            return getTextMessage(inputStream);
-
-        } else if (StringUtils.equals(msgType, ReceivedType.IMAGE.getValue())) {
-
-            return getImageMessage(inputStream);
-
-        } else if (StringUtils.equals(msgType, ReceivedType.VOICE.getValue())) {
-
-            return getVoiceMessage(inputStream);
-
-        } else if (StringUtils.equals(msgType, ReceivedType.VIDEO.getValue())) {
-
-            return getVideoMessage(inputStream);
-
-        } else if (StringUtils.equals(msgType, ReceivedType.LOCATION.getValue())) {
-
-            return getLocationMessage(inputStream);
-
-        } else if (StringUtils.equals(msgType, ReceivedType.LINK.getValue())) {
-
-            return getLinkMessage(inputStream);
-
-        }
+        message = getMessageFromXml(message.getMsgType(), inputStream);
 
         return message;
     }
 
-
-    private TextMessage getTextMessage(InputStream inputStream) {
+    public TextMessage getTextMessage(InputStream inputStream) {
         return new TextMessage(
                 xmlReader.getString("Content"),
                 getMessageHeader());
     }
 
-    private ImageMessage getImageMessage(InputStream inputStream) {
+    protected ImageMessage getImageMessage(InputStream inputStream) {
         return new ImageMessage(
                 xmlReader.getString("PicUrl"),
                 xmlReader.getString("MediaId"),
                 getMessageHeader());
     }
 
-    private VoiceMessage getVoiceMessage(InputStream inputStream) {
+    protected VoiceMessage getVoiceMessage(InputStream inputStream) {
         return new VoiceMessage(
                 xmlReader.getString("MediaId"),
                 getMessageHeader());
@@ -105,5 +78,4 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
                 xmlReader.getString("Url"),
                 getMessageHeader());
     }
-
 }

@@ -1,5 +1,7 @@
 package wechat4j.menu.bean;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -20,7 +22,7 @@ public class Button implements Serializable {
         this.name = name;
     }
 
-    public class ViewButton extends Button {
+    public static class ViewButton extends Button {
         private String url;
 
         public String getUrl() {
@@ -36,7 +38,7 @@ public class Button implements Serializable {
     }
 
 
-    public class ClickButton extends Button {
+    public static class ClickButton extends Button {
         private String key;
 
         public String getKey() {
@@ -76,6 +78,14 @@ public class Button implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("type", type)
+                .append("name", name)
+                .toString();
     }
 }
 

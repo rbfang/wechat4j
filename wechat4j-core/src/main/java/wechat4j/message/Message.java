@@ -1,8 +1,6 @@
 package wechat4j.message;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The parent of messages

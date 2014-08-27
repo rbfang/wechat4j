@@ -4,6 +4,7 @@ import org.junit.Test;
 import wechat4j.message.handler.ReceiveMessageHandler;
 
 import java.io.InputStream;
+import java.lang.reflect.Method;
 
 /**
  * ReceiveMessageHandlerTest
@@ -12,6 +13,13 @@ import java.io.InputStream;
  * @date 2014/8/27.
  */
 public class ReceiveMessageHandlerTest {
+
+    @Test
+    public void printMethods() {
+        for (Method method : getClass().getMethods()) {
+            System.out.println(method.getName());
+        }
+    }
 
     @Test
     public void getTextMessageTest() {
