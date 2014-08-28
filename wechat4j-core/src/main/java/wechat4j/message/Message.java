@@ -62,7 +62,8 @@ public class Message implements Serializable {
         VOICE("voice"),
         VIDEO("video"),
         LOCATION("location"),
-        LINK("link");
+        LINK("link"),
+        EVENT("event");
 
         private String value;
 

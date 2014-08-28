@@ -25,14 +25,15 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
         return xmlReader;
     }
 
+
     @Override
-    public Message getMessage(InputStream inputStream) {
+    public <T> T getMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
         Message message = getMessageHeader();
         message = getMessageFromXml(clazz, message.getMsgType(), inputStream);
 
-        return message;
+        return (T) message;
     }
 
     public TextMessage getTextMessage(InputStream inputStream) {

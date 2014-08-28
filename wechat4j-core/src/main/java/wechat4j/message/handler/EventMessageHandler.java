@@ -4,6 +4,7 @@ import org.apache.commons.configuration.XMLConfiguration;
 import wechat4j.message.Message;
 import wechat4j.message.event.*;
 
+import java.awt.*;
 import java.io.InputStream;
 
 /**
@@ -15,6 +16,8 @@ import java.io.InputStream;
 public class EventMessageHandler extends AbstractReceiveMessageHandler {
     private XMLConfiguration xmlReader;
 
+    private static final String clazz = "wechat4j.message.handler.EventMessageHandler";
+
     @Override
     protected XMLConfiguration getXmlReader() {
         if (xmlReader == null) {
@@ -24,25 +27,38 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
         return xmlReader;
     }
 
-    @Override
-    public Message getMessage(InputStream inputStream) {
-        return getEventMessage(inputStream);
-    }
 
-    public EventMessage getEventMessage(InputStream inputStream) {
+    @Override
+    public <T> T getMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
 
+        EventMessage eventMessage = getEventMessageHeader();
+        EventMessage message = getEventMessageFromXml(clazz, eventMessage.getEvent(), inputStream);
+
+        return (T) message;
+    }
+
+    private EventMessage getEventMessage() {
         return new EventMessage(getMessageHeader(), xmlReader.getString("Event"));
     }
 
     /**
-     * 关注/取消事件
+     * 关注事件
+     *
+     * @return
+     */
+    public EventMessage getSubscribeEventMessage() {
+        return getEventMessage();
+    }
+
+    /**
+     * 取消事件
      *
      * @param inputStream
      * @return
      */
-    private SubscibeEventMessage getSubscibeEventMessage(InputStream inputStream) {
-        return new SubscibeEventMessage(getEventMessage(inputStream));
+    public EventMessage getUnsubscribeEventMessage(InputStream inputStream) {
+        return getEventMessage();
     }
 
 
@@ -52,8 +68,8 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @param inputStream
      * @return
      */
-    private ScanEventMessage getScanEventMessage(InputStream inputStream) {
-        return new ScanEventMessage(getEventMessage(inputStream),
+    public ScanEventMessage getScanEventMessage(InputStream inputStream) {
+        return new ScanEventMessage(getEventMessage(),
                 xmlReader.getString("EventKey"),
                 xmlReader.getString("Ticket"));
     }
@@ -64,8 +80,8 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @param inputStream
      * @return
      */
-    private LocationEventMessage getLocationEventMessage(InputStream inputStream) {
-        return new LocationEventMessage(getEventMessage(inputStream),
+    public LocationEventMessage getLocationEventMessage(InputStream inputStream) {
+        return new LocationEventMessage(getEventMessage(),
                 xmlReader.getDouble("Latitude"),
                 xmlReader.getDouble("Longitude"),
                 xmlReader.getDouble("Precision"));
@@ -79,8 +95,8 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @param inputStream
      * @return
      */
-    private CustomMenuEventMessage getClickEventMessage(InputStream inputStream) {
-        return new CustomMenuEventMessage(getEventMessage(inputStream),
+    public CustomMenuEventMessage getClickEventMessage(InputStream inputStream) {
+        return new CustomMenuEventMessage(getEventMessage(),
                 xmlReader.getString("EventKey"));
     }
 }

@@ -46,6 +46,13 @@ public class EventMessage extends Message implements Serializable {
         }
     }
 
+    public void setMessage(Message message) {
+        super.setToUserName(message.getToUserName());
+        super.setFromUserName(message.getFromUserName());
+        super.setCreateTime(message.getCreateTime());
+        super.setMsgType(message.getMsgType());
+    }
+
     public String getEvent() {
         return event;
     }

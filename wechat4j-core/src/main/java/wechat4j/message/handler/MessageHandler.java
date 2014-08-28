@@ -1,7 +1,5 @@
 package wechat4j.message.handler;
 
-import wechat4j.message.Message;
-
 import java.io.InputStream;
 
 /**
@@ -11,5 +9,5 @@ import java.io.InputStream;
  * @date 2014/8/21.
  */
 public interface MessageHandler {
-    Message getMessage(InputStream inputStream);
+    <T> T getMessage(InputStream inputStream);
 }

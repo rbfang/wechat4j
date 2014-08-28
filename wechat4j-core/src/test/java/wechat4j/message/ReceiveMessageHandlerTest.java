@@ -4,7 +4,6 @@ import org.junit.Test;
 import wechat4j.message.handler.ReceiveMessageHandler;
 
 import java.io.InputStream;
-import java.lang.reflect.Method;
 
 /**
  * ReceiveMessageHandlerTest
@@ -15,18 +14,11 @@ import java.lang.reflect.Method;
 public class ReceiveMessageHandlerTest {
 
     @Test
-    public void printMethods() {
-        for (Method method : getClass().getMethods()) {
-            System.out.println(method.getName());
-        }
-    }
-
-    @Test
     public void getTextMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-text-message.xml");
 
         ReceiveMessageHandler receiveMessageHandler = new ReceiveMessageHandler();
-        TextMessage textMessage = (TextMessage) receiveMessageHandler.getMessage(inputStream);
+        TextMessage textMessage = receiveMessageHandler.getMessage(inputStream);
 
         System.out.println(textMessage.toString());
     }
