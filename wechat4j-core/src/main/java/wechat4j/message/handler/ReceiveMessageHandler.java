@@ -25,7 +25,6 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
         return xmlReader;
     }
 
-
     @Override
     public Message getMessage(InputStream inputStream) {
         reloadInputStream(inputStream);
@@ -78,4 +77,5 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
                 xmlReader.getString("Url"),
                 getMessageHeader());
     }
+
 }
