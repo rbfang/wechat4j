@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
     private static XMLConfiguration xmlReader;
 
-    private Class<? extends MessageHandler> clz;
+    private final static String clazz = "wechat4j.message.handler.ReceiveMessageHandler";
 
     @Override
     public XMLConfiguration getXmlReader() {
@@ -30,7 +30,7 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
         reloadInputStream(inputStream);
 
         Message message = getMessageHeader();
-        message = getMessageFromXml(message.getMsgType(), inputStream);
+        message = getMessageFromXml(clazz, message.getMsgType(), inputStream);
 
         return message;
     }
@@ -41,27 +41,27 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
                 getMessageHeader());
     }
 
-    protected ImageMessage getImageMessage(InputStream inputStream) {
+    public ImageMessage getImageMessage(InputStream inputStream) {
         return new ImageMessage(
                 xmlReader.getString("PicUrl"),
                 xmlReader.getString("MediaId"),
                 getMessageHeader());
     }
 
-    protected VoiceMessage getVoiceMessage(InputStream inputStream) {
+    public VoiceMessage getVoiceMessage(InputStream inputStream) {
         return new VoiceMessage(
                 xmlReader.getString("MediaId"),
                 getMessageHeader());
     }
 
-    private VideoMessage getVideoMessage(InputStream inputStream) {
+    public VideoMessage getVideoMessage(InputStream inputStream) {
         return new VideoMessage(
                 xmlReader.getString("MediaId"),
                 xmlReader.getString("ThumbMediaId"),
                 getMessageHeader());
     }
 
-    private LocationMessage getLocationMessage(InputStream inputStream) {
+    public LocationMessage getLocationMessage(InputStream inputStream) {
         return new LocationMessage(
                 xmlReader.getString("LocationX"),
                 xmlReader.getString("LocationY"),

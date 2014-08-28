@@ -24,9 +24,15 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
         return xmlReader;
     }
 
-    public EventMessage getMessage(InputStream inputStream) {
+    @Override
+    public Message getMessage(InputStream inputStream) {
+        return getEventMessage(inputStream);
+    }
 
-        return null;
+    public EventMessage getEventMessage(InputStream inputStream) {
+        reloadInputStream(inputStream);
+
+        return new EventMessage(getMessageHeader(), xmlReader.getString("Event"));
     }
 
     /**
@@ -36,7 +42,7 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @return
      */
     private SubscibeEventMessage getSubscibeEventMessage(InputStream inputStream) {
-        return null;
+        return new SubscibeEventMessage(getEventMessage(inputStream));
     }
 
 
@@ -47,7 +53,9 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @return
      */
     private ScanEventMessage getScanEventMessage(InputStream inputStream) {
-        return null;
+        return new ScanEventMessage(getEventMessage(inputStream),
+                xmlReader.getString("EventKey"),
+                xmlReader.getString("Ticket"));
     }
 
     /**
@@ -57,7 +65,10 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @return
      */
     private LocationEventMessage getLocationEventMessage(InputStream inputStream) {
-        return null;
+        return new LocationEventMessage(getEventMessage(inputStream),
+                xmlReader.getDouble("Latitude"),
+                xmlReader.getDouble("Longitude"),
+                xmlReader.getDouble("Precision"));
     }
 
     /**
@@ -69,6 +80,7 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
      * @return
      */
     private CustomMenuEventMessage getClickEventMessage(InputStream inputStream) {
-        return null;
+        return new CustomMenuEventMessage(getEventMessage(inputStream),
+                xmlReader.getString("EventKey"));
     }
 }

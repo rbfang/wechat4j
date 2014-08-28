@@ -16,23 +16,20 @@ import java.lang.reflect.Method;
  * @date 2014/8/22.
  */
 public abstract class AbstractReceiveMessageHandler implements MessageHandler {
-    private final static String clazz = "wechat4j.message.handler.ReceiveMessageHandler";
-
     /**
      * Parse Message from xml stream
      *
+     * @param clazzStr
      * @param msgType
      * @param inputStream
      * @return
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
      */
-    public final Message getMessageFromXml(String msgType, InputStream inputStream) {
+    public final Message getMessageFromXml(String clazzStr, String msgType, InputStream inputStream) {
         Message message = null;
 
         Class<?> claz = null;
         try {
-            claz = Class.forName(clazz);
+            claz = Class.forName(clazzStr);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

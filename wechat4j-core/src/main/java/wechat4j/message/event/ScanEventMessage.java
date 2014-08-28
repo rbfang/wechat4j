@@ -1,5 +1,8 @@
 package wechat4j.message.event;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import wechat4j.message.Message;
+
 /**
  * @author renbin.fang.
  * @date 2014/8/22.
@@ -19,8 +22,8 @@ public class ScanEventMessage extends EventMessage {
         this.ticket = ticket;
     }
 
-    public ScanEventMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String event, String eventKey, String ticket) {
-        super(toUserName, fromUserName, createTime, msgType, messageId, event);
+    public ScanEventMessage(EventMessage eventMessage, String eventKey, String ticket) {
+        super(new Message(eventMessage.getToUserName(), eventMessage.getFromUserName(), eventMessage.getCreateTime(), eventMessage.getMsgType()), eventMessage.getEvent());
         this.eventKey = eventKey;
         this.ticket = ticket;
     }
@@ -39,5 +42,13 @@ public class ScanEventMessage extends EventMessage {
 
     public void setTicket(String ticket) {
         this.ticket = ticket;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).
+                append("eventKey", eventKey).
+                append("ticket", ticket).
+                toString();
     }
 }

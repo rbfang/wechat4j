@@ -1,5 +1,7 @@
 package wechat4j.message.event;
 
+import wechat4j.message.Message;
+
 /**
  * @author renbin.fang.
  * @date 2014/8/22.
@@ -16,8 +18,9 @@ public class CustomMenuEventMessage extends EventMessage {
         this.eventKey = eventKey;
     }
 
-    public CustomMenuEventMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String event, String eventKey) {
-        super(toUserName, fromUserName, createTime, msgType, messageId, event);
+    public CustomMenuEventMessage(EventMessage eventMessage, String eventKey) {
+        super(new Message(eventMessage.getToUserName(), eventMessage.getFromUserName(), eventMessage.getCreateTime(), eventMessage.getMsgType()), eventMessage.getEvent());
+
         this.eventKey = eventKey;
     }
 }

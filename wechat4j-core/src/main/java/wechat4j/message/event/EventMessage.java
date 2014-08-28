@@ -20,8 +20,8 @@ public class EventMessage extends Message implements Serializable {
         this.event = event;
     }
 
-    public EventMessage(String toUserName, String fromUserName, String createTime, String msgType, String messageId, String event) {
-        super(toUserName, fromUserName, createTime, msgType, messageId);
+    public EventMessage(Message message, String event) {
+        super(message.getToUserName(), message.getFromUserName(), message.getCreateTime(), message.getMsgType());
         this.event = event;
     }
 
