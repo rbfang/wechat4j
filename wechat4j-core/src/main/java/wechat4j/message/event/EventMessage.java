@@ -60,4 +60,12 @@ public class EventMessage extends Message implements Serializable {
     public void setEvent(String event) {
         this.event = event;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("EventMessage{");
+        sb.append("event='").append(event).append('\'');
+        sb.append('}').append(super.toString());
+        return sb.toString();
+    }
 }

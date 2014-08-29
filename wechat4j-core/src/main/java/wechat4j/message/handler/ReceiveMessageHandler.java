@@ -14,8 +14,6 @@ import java.io.InputStream;
 public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
     private static XMLConfiguration xmlReader;
 
-    private final static String clazz = "wechat4j.message.handler.ReceiveMessageHandler";
-
     @Override
     public XMLConfiguration getXmlReader() {
         if (xmlReader == null) {
@@ -25,58 +23,51 @@ public class ReceiveMessageHandler extends AbstractReceiveMessageHandler {
         return xmlReader;
     }
 
-
     @Override
-    public <T> T getMessage(InputStream inputStream) {
-        reloadInputStream(inputStream);
-
-        Message message = getMessageHeader();
-        message = getMessageFromXml(clazz, message.getMsgType(), inputStream);
-
-        return (T) message;
+    protected String getClassName() {
+        return getClass().getName();
     }
 
-    public TextMessage getTextMessage(InputStream inputStream) {
+    private TextMessage getTextMessage(Message message) {
         return new TextMessage(
                 xmlReader.getString("Content"),
-                getMessageHeader());
+                message);
     }
 
-    public ImageMessage getImageMessage(InputStream inputStream) {
+    private ImageMessage getImageMessage(Message message) {
         return new ImageMessage(
                 xmlReader.getString("PicUrl"),
                 xmlReader.getString("MediaId"),
-                getMessageHeader());
+                message);
     }
 
-    public VoiceMessage getVoiceMessage(InputStream inputStream) {
+    private VoiceMessage getVoiceMessage(Message message) {
         return new VoiceMessage(
                 xmlReader.getString("MediaId"),
-                getMessageHeader());
+                message);
     }
 
-    public VideoMessage getVideoMessage(InputStream inputStream) {
+    private VideoMessage getVideoMessage(Message message) {
         return new VideoMessage(
                 xmlReader.getString("MediaId"),
                 xmlReader.getString("ThumbMediaId"),
-                getMessageHeader());
+                message);
     }
 
-    public LocationMessage getLocationMessage(InputStream inputStream) {
+    private LocationMessage getLocationMessage(Message message) {
         return new LocationMessage(
                 xmlReader.getString("LocationX"),
                 xmlReader.getString("LocationY"),
                 Integer.valueOf(xmlReader.getString("Scale")),
                 xmlReader.getString("Label"),
-                getMessageHeader());
+                message);
     }
 
-    private LinkMessage getLinkMessage(InputStream inputStream) {
+    private LinkMessage getLinkMessage(Message message) {
         return new LinkMessage(
                 xmlReader.getString("Title"),
                 xmlReader.getString("Description"),
                 xmlReader.getString("Url"),
-                getMessageHeader());
+                message);
     }
-
 }

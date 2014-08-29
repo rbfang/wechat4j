@@ -1,13 +1,11 @@
 package wechat4j.message.event;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-import sun.applet.Main;
+import wechat4j.message.handler.AbstractReceiveMessageHandler;
 import wechat4j.message.handler.EventMessageHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 
 /**
  * @author renbin.fang.
@@ -17,16 +15,21 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getSubscribeMessage() throws IOException {
-        EventMessageHandler eventMessageHandler = new EventMessageHandler();
+        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
 
-        InputStream inputStream = ClassLoader.getSystemResourceAsStream("event-message.xml");
+        InputStream inputStream = getClass().getResourceAsStream("/event-message.xml");
 
-        StringWriter writer = new StringWriter();
-        IOUtils.copy(inputStream, writer);
+        EventMessage eventMessage = messageHandler.getMessage(inputStream);
 
+        System.out.println(eventMessage.toString());
+    }
 
-        System.out.println(writer);
+    @Test
+    public void getScanEventMessage() {
+        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
+        InputStream inputStream = getClass().getResourceAsStream("/event-scan-message.xml");
+        ScanEventMessage scanEventMessage = messageHandler.getMessage(inputStream);
 
-        EventMessage eventMessage = eventMessageHandler.getMessage(inputStream);
+        System.out.println(scanEventMessage.toString());
     }
 }
