@@ -4,6 +4,8 @@ import wechat4j.user.bean.FollowerList;
 import wechat4j.user.bean.UserInfo;
 
 /**
+ * UserOperator
+ *
  * @author renbin.fang.
  * @date 2014/8/22.
  */

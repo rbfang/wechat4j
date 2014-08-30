@@ -3,7 +3,7 @@ package wechat4j.message;
 import java.io.Serializable;
 
 /**
- * NewsMessage
+ * News message
  *
  * @author renbin.fang.
  * @date 2014/8/26.
@@ -14,9 +14,20 @@ public class NewsMessage implements Serializable {
     private String picUrl;
     private String url;
 
+    /**
+     * Constructor
+     */
     public NewsMessage() {
     }
 
+    /**
+     * Constructor
+     *
+     * @param title
+     * @param description
+     * @param picUrl
+     * @param url
+     */
     public NewsMessage(String title, String description, String picUrl, String url) {
         this.title = title;
         this.description = description;
@@ -54,5 +65,15 @@ public class NewsMessage implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsMessage{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", picUrl='" + picUrl + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

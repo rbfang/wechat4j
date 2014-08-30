@@ -22,7 +22,7 @@ public abstract class AbstractReceiveMessageHandler {
      * Parse Message from xml stream
      *
      * @param inputStream
-     * @return
+     * @return Subclass of {@link wechat4j.message.Message}
      */
     public final <T extends Message> T getMessage(InputStream inputStream) {
         // Load new input stream
@@ -32,7 +32,7 @@ public abstract class AbstractReceiveMessageHandler {
         Message message = getMessageHeader();
 
         // Find key word of method
-        String keyWordOfMethod = null;
+        String keyWordOfMethod;
         if (StringUtils.equals(message.getMsgType(), Message.ReceivedType.EVENT.getValue())) {
             message = getEventMessageHeader(message);
             keyWordOfMethod = getEventMessageHeader(message).getEvent();
@@ -40,19 +40,19 @@ public abstract class AbstractReceiveMessageHandler {
             keyWordOfMethod = message.getMsgType();
         }
 
-        // Get class using reflection
+        // Get class using reflection and invoking the method
         Object obj = null;
         try {
             Class<?> clazz = Class.forName(getClassName());
 
             Method[] methods = clazz.getDeclaredMethods();
             for (Method method : methods) {
+
                 if (!isMessageMethod(keyWordOfMethod, method)) {
                     continue;
                 }
 
                 try {
-                    // Invoking the method
                     method.setAccessible(true);
                     obj = method.invoke(clazz.newInstance(), message);
 
@@ -73,9 +73,11 @@ public abstract class AbstractReceiveMessageHandler {
     }
 
     /**
+     * If the method should be invoked
+     *
      * @param keyWordOfMethod
      * @param method
-     * @return
+     * @return true or false
      */
     private boolean isMessageMethod(String keyWordOfMethod, Method method) {
         return method.getName().startsWith("get")

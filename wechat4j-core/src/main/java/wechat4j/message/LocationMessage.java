@@ -70,4 +70,14 @@ public class LocationMessage extends Message {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    @Override
+    public String toString() {
+        return "LocationMessage{" +
+                "locationX='" + locationX + '\'' +
+                ", locationY='" + locationY + '\'' +
+                ", scale=" + scale +
+                ", label='" + label + '\'' +
+                "} " + super.toString();
+    }
 }

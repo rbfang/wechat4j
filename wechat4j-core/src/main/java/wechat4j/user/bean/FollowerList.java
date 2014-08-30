@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Follower list
+ *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
@@ -43,5 +45,15 @@ public class FollowerList implements Serializable {
 
     public void setNextOpenId(String nextOpenId) {
         this.nextOpenId = nextOpenId;
+    }
+
+    @Override
+    public String toString() {
+        return "FollowerList{" +
+                "total=" + total +
+                ", count=" + count +
+                ", openIdList=" + openIdList +
+                ", nextOpenId='" + nextOpenId + '\'' +
+                '}';
     }
 }

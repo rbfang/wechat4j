@@ -74,4 +74,13 @@ public class RecognitionMessage extends Message {
     public void setRecognition(String recognition) {
         this.recognition = recognition;
     }
+
+    @Override
+    public String toString() {
+        return "RecognitionMessage{" +
+                "mediaId='" + mediaId + '\'' +
+                ", format='" + format + '\'' +
+                ", recognition='" + recognition + '\'' +
+                "} " + super.toString();
+    }
 }

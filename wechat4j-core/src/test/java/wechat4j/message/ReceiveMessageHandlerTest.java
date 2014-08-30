@@ -1,7 +1,8 @@
 package wechat4j.message;
 
 import org.junit.Test;
-import wechat4j.message.handler.ReceiveMessageHandler;
+import wechat4j.message.handler.AbstractReceiveMessageHandler;
+import wechat4j.message.handler.MessageHandlerFactory;
 
 import java.io.InputStream;
 
@@ -12,13 +13,12 @@ import java.io.InputStream;
  * @date 2014/8/27.
  */
 public class ReceiveMessageHandlerTest {
+    private static AbstractReceiveMessageHandler messageHandler = MessageHandlerFactory.getMessageHandler();
 
     @Test
     public void getTextMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-text-message.xml");
-
-        ReceiveMessageHandler receiveMessageHandler = new ReceiveMessageHandler();
-        TextMessage textMessage = receiveMessageHandler.getMessage(inputStream);
+        TextMessage textMessage = messageHandler.getMessage(inputStream);
 
         System.out.println(textMessage.toString());
     }
@@ -26,9 +26,7 @@ public class ReceiveMessageHandlerTest {
     @Test
     public void getImageMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-image-message.xml");
-
-        ReceiveMessageHandler receiveMessageHandler = new ReceiveMessageHandler();
-        ImageMessage imageMessage = (ImageMessage) receiveMessageHandler.getMessage(inputStream);
+        ImageMessage imageMessage = messageHandler.getMessage(inputStream);
 
         System.out.println(imageMessage.toString());
     }

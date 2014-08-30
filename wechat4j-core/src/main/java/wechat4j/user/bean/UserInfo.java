@@ -19,7 +19,7 @@ public class UserInfo implements Serializable {
     private String province;
     private String language;
     private String headimgurl;
-    private Date subscribe_time;
+    private Date subscribeTime;
     private String unionid;
 
     public enum Sex {
@@ -107,12 +107,12 @@ public class UserInfo implements Serializable {
         this.headimgurl = headimgurl;
     }
 
-    public Date getSubscribe_time() {
-        return subscribe_time;
+    public Date getSubscribeTime() {
+        return subscribeTime;
     }
 
-    public void setSubscribe_time(Date subscribe_time) {
-        this.subscribe_time = subscribe_time;
+    public void setSubscribeTime(Date subscribeTime) {
+        this.subscribeTime = subscribeTime;
     }
 
     public String getUnionid() {
@@ -135,7 +135,7 @@ public class UserInfo implements Serializable {
                 ", province='" + province + '\'' +
                 ", language='" + language + '\'' +
                 ", headimgurl='" + headimgurl + '\'' +
-                ", subscribe_time=" + subscribe_time +
+                ", subscribeTime=" + subscribeTime +
                 ", unionid='" + unionid + '\'' +
                 '}';
     }

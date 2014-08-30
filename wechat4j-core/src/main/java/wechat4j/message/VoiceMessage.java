@@ -32,4 +32,11 @@ public class VoiceMessage extends Message {
     public void setMediaId(String mediaId) {
         this.mediaId = mediaId;
     }
+
+    @Override
+    public String toString() {
+        return "VoiceMessage{" +
+                "mediaId='" + mediaId + '\'' +
+                "} " + super.toString();
+    }
 }

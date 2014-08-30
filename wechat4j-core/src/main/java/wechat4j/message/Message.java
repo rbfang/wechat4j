@@ -3,7 +3,7 @@ package wechat4j.message;
 import java.io.Serializable;
 
 /**
- * The parent of messages
+ * The parent class of messages
  *
  * @author renbin.fang.
  * @date 2014/8/21.
@@ -54,7 +54,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * ReceivedType
+     * Type of received message
      */
     public enum ReceivedType {
         TEXT("text"),
@@ -77,7 +77,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * SendType
+     * Type of sending message
      */
     public enum SendType {
         TEXT("text"),
@@ -136,5 +136,16 @@ public class Message implements Serializable {
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "toUserName='" + toUserName + '\'' +
+                ", fromUserName='" + fromUserName + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", msgType='" + msgType + '\'' +
+                ", messageId='" + messageId + '\'' +
+                '}';
     }
 }

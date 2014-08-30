@@ -42,6 +42,6 @@ public class TextMessage extends Message {
     public String toString() {
         return "TextMessage{" +
                 "content='" + content + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

@@ -1,9 +1,10 @@
 package wechat4j.message.event;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import wechat4j.message.Message;
 
 /**
+ * Scan event message
+ *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
@@ -46,9 +47,9 @@ public class ScanEventMessage extends EventMessage {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).
-                append("eventKey", eventKey).
-                append("ticket", ticket).
-                toString();
+        return "ScanEventMessage{" +
+                "eventKey='" + eventKey + '\'' +
+                ", ticket='" + ticket + '\'' +
+                "} " + super.toString();
     }
 }

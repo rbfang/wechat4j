@@ -59,4 +59,13 @@ public class LinkMessage extends Message {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "LinkMessage{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                "} " + super.toString();
+    }
 }

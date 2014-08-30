@@ -56,6 +56,9 @@ public class CheckSignatureUtil {
         }
     }
 
+    /**
+     * Constructor is forbidden for other classes
+     */
     private CheckSignatureUtil() {
         throw new Error("Please do not instantiate this class");
     }

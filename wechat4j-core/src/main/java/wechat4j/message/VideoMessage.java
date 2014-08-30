@@ -48,4 +48,12 @@ public class VideoMessage extends Message {
     public void setThumbMediaId(String thumbMediaId) {
         this.thumbMediaId = thumbMediaId;
     }
+
+    @Override
+    public String toString() {
+        return "VideoMessage{" +
+                "mediaId='" + mediaId + '\'' +
+                ", thumbMediaId='" + thumbMediaId + '\'' +
+                "} " + super.toString();
+    }
 }
