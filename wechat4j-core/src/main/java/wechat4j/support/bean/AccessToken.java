@@ -11,17 +11,16 @@ import java.util.Date;
 public class AccessToken {
     private String accessToken;
     private Date gotTokenTime;
-
     // 获取后有效期为7200秒
-    private Date validTime;
+    private Long ExpiresIn;
 
     public AccessToken() {
     }
 
-    public AccessToken(String accessToken, Date gotTokenTime, Date validTime) {
+    public AccessToken(String accessToken, Date gotTokenTime, Long expiresIn) {
         this.accessToken = accessToken;
         this.gotTokenTime = gotTokenTime;
-        this.validTime = validTime;
+        ExpiresIn = expiresIn;
     }
 
     public String getAccessToken() {
@@ -40,11 +39,20 @@ public class AccessToken {
         this.gotTokenTime = gotTokenTime;
     }
 
-    public Date getValidTime() {
-        return validTime;
+    public Long getExpiresIn() {
+        return ExpiresIn;
     }
 
-    public void setValidTime(Date validTime) {
-        this.validTime = validTime;
+    public void setExpiresIn(Long expiresIn) {
+        ExpiresIn = expiresIn;
+    }
+
+    @Override
+    public String toString() {
+        return "AccessToken{" +
+                "accessToken='" + accessToken + '\'' +
+                ", gotTokenTime=" + gotTokenTime +
+                ", ExpiresIn=" + ExpiresIn +
+                '}';
     }
 }

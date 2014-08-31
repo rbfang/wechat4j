@@ -9,6 +9,8 @@ import java.io.Serializable;
  * @date 2014/8/21.
  */
 public class Message implements Serializable {
+    private static final long serialVersionUID = 3829004279712069079L;
+
     String toUserName;
     String fromUserName;
     String createTime;

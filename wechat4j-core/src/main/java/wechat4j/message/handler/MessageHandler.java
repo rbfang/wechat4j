@@ -42,6 +42,7 @@ public class MessageHandler extends AbstractReceiveMessageHandler {
     }
 
     private VoiceMessage getVoiceMessage(Message message) {
+        //TODO 添加语音识别结果
         return new VoiceMessage(
                 xmlReader.getString("MediaId"),
                 message);
