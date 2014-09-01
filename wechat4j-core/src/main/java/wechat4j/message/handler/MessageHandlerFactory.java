@@ -23,5 +23,4 @@ public class MessageHandlerFactory {
     public static ISendMessageHandler getSendMessageHandler() {
         return sendMessageHandler;
     }
-
 }

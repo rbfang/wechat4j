@@ -6,7 +6,7 @@ import wechat4j.support.bean.AccessToken;
 
 public class GetAccessTokenTest {
 
-//    @Test
+    @Test
     public void getAccessTokenTest() {
         AccessTokenGetter tokenGetter = new AccessTokenGetter("wxd30e31bfd8c207ee", "d0f9c44269c0282a1a7337efea1950a1");
 

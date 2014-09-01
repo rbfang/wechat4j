@@ -1,7 +1,5 @@
 package wechat4j.menu.bean;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.io.Serializable;
 
 /**
@@ -11,19 +9,18 @@ import java.io.Serializable;
  * @date 2014/8/22.
  */
 public class Button implements Serializable {
-    private String type;
     private String name;
 
     public Button() {
     }
 
-    public Button(String type, String name) {
-        this.type = type;
-        this.name = name;
-    }
-
     public static class ViewButton extends Button {
+        private String type = ButtonType.VIEW.getValue();
         private String url;
+
+        public String getType() {
+            return type;
+        }
 
         public String getUrl() {
             return url;
@@ -32,14 +29,16 @@ public class Button implements Serializable {
         public void setUrl(String url) {
             this.url = url;
         }
-
-        public ViewButton() {
-        }
     }
 
 
     public static class ClickButton extends Button {
+        private String type = ButtonType.CLICK.getValue();
         private String key;
+
+        public String getType() {
+            return type;
+        }
 
         public String getKey() {
             return key;
@@ -47,6 +46,30 @@ public class Button implements Serializable {
 
         public void setKey(String key) {
             this.key = key;
+        }
+    }
+
+    public static class SubButton extends Button {
+        private Button[] sub_button;
+
+        public Button[] getSub_button() {
+            return sub_button;
+        }
+
+        public void setSub_button(Button[] sub_button) {
+            this.sub_button = sub_button;
+        }
+    }
+
+    public static class MainButton {
+        private Button[] button;
+
+        public Button[] getButton() {
+            return button;
+        }
+
+        public void setButton(Button[] button) {
+            this.button = button;
         }
     }
 
@@ -64,14 +87,6 @@ public class Button implements Serializable {
         }
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getName() {
         return name;
     }
@@ -82,10 +97,10 @@ public class Button implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("type", type)
-                .append("name", name)
-                .toString();
+        final StringBuffer sb = new StringBuffer("Button{");
+        sb.append("name='").append(name).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
 
