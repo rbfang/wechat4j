@@ -19,7 +19,7 @@ public class ButtonHandlerTest {
 
     @Test
     public void createMenuTest() {
-        String jsonData = gnerateJson();
+        String jsonData = gnerateMenuJson();
 
         System.out.println(MenuHandler.createMenu(accessToken, jsonData));
     }
@@ -105,7 +105,7 @@ public class ButtonHandlerTest {
      *
      * @return
      */
-    private String gnerateJson() {
+    private String gnerateMenuJson() {
         Button.ClickButton clickButton = new Button.ClickButton();
         clickButton.setKey("V1001_TODAY_MUSIC");
         clickButton.setName("今日歌曲");

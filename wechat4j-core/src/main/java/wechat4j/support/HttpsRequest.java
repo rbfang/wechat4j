@@ -25,8 +25,8 @@ public final class HttpsRequest {
         return new JSONObject(request(requestUrl, POST, outPutString));
     }
 
-    public static JSONObject doGetReuqest(String requstUrl) {
-        return new JSONObject(request(requstUrl, GET, null));
+    public static JSONObject doGetRequest(String requestUrl) {
+        return new JSONObject(request(requestUrl, GET, null));
     }
 
     public static String request(String requstUrl, String requestMethod, String outPutString) {

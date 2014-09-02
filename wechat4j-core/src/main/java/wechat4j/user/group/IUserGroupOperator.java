@@ -1,6 +1,7 @@
 package wechat4j.user.group;
 
 
+import wechat4j.support.RequestUrl;
 import wechat4j.user.group.bean.UserGroup;
 
 import java.util.List;
@@ -11,13 +12,7 @@ import java.util.List;
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public interface IUserGroupOperator {
-    static final String CREATE = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=ACCESS_TOKEN";
-    static final String QUERY = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token=ACCESS_TOKEN";
-    static final String GET_ID = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token=ACCESS_TOKEN";
-    static final String UPDATE = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token=ACCESS_TOKEN";
-    static final String MOVE_TO = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=ACCESS_TOKEN";
-
+public interface IUserGroupOperator extends RequestUrl{
     boolean createGroup(String groupName);
 
     List<UserGroup> findAllGroup();

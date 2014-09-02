@@ -117,11 +117,11 @@ public class Button implements Serializable {
          * @return
          */
         public int getSizeOfInstance() {
-            return sizeOfInstance;
+            return this.sizeOfInstance;
         }
 
         public int size() {
-            return sub_button.length;
+            return this.sub_button.length;
         }
 
         public Button[] getSub_button() {

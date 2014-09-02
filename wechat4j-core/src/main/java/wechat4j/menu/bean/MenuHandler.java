@@ -1,8 +1,10 @@
 package wechat4j.menu.bean;
 
+import org.json.JSONObject;
 import wechat4j.support.HttpResponseCode;
 import wechat4j.support.HttpsRequest;
 import wechat4j.support.RequestUrl;
+import wechat4j.support.WechatException;
 
 /**
  * MenuHandler
@@ -11,23 +13,45 @@ import wechat4j.support.RequestUrl;
  * @date 2014/9/1.
  */
 public class MenuHandler implements HttpResponseCode, RequestUrl {
+    private static final String CREATE = "menu/create?access_token=";
+    private static final String QUERY = "menu/get?access_token=";
+    private static final String DELETE = "menu/delete?access_token=";
 
-    //TODO 重构此段代码
-    public static String createMenu(String accessToken, String jsonDate) {
-        String url = BASE_URL + "menu/create?access_token=" + accessToken;
+    public static boolean createMenu(String accessToken, String jsonDate) throws WechatException {
+        String url = BASE_URL + CREATE + accessToken;
 
-        return HttpsRequest.doPostRequest(url, jsonDate).toString();
+        String result = HttpsRequest.doPostRequest(url, jsonDate).toString();
+        JSONObject resultJsonObject = new JSONObject(result);
+
+        int errCode = resultJsonObject.getInt("errcode");
+        String errmsg = resultJsonObject.getString("errmsg");
+
+        if (errCode != SUCCESS) {
+            return false;
+        }
+
+        return true;
     }
 
     public static String queryMenu(String accessToken) {
-        String url = BASE_URL + "menu/get?access_token=" + accessToken;
+        String url = BASE_URL + QUERY + accessToken;
 
-        return HttpsRequest.doGetReuqest(url).toString();
+        return HttpsRequest.doGetRequest(url).toString();
     }
 
-    public static String deleteMenu(String accessToken) {
-        String url = BASE_URL + "menu/delete?access_token=" + accessToken;
+    public static boolean deleteMenu(String accessToken) {
+        String url = BASE_URL + DELETE + accessToken;
 
-        return HttpsRequest.doGetReuqest(url).toString();
+        String result = HttpsRequest.doGetRequest(url).toString();
+        JSONObject resultJsonObject = new JSONObject(result);
+
+        int errCode = resultJsonObject.getInt("errcode");
+        String errmsg = resultJsonObject.getString("errmsg");
+
+        if (errCode != SUCCESS) {
+            return false;
+        }
+
+        return true;
     }
 }
