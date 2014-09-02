@@ -1,8 +1,11 @@
 package wechat4j.message.menu;
 
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import wechat4j.menu.bean.Button;
+import wechat4j.menu.bean.Menu;
 import wechat4j.menu.bean.MenuHandler;
 
 /**
@@ -12,13 +15,89 @@ import wechat4j.menu.bean.MenuHandler;
  * @date 2014/9/1.
  */
 public class ButtonHandlerTest {
+    private String accessToken = "GRB3oqJZYGmKAHEmVdHpzpaRSc3pSmVdS1UiDQ6kz40ydkibmgjMSho52EmA0Msh8mfMkErZX5iwIdF0x9yi7Q";
 
     @Test
     public void createMenuTest() {
-        String accessToken = "ZwLx4qm_L_Kf3Nm7YPENBVeKXjVrn0caQa4zj2AnZhrelWZ3GCYNrkK3Q-DjrvpAKBpzxdTQNZlW1suhBuRP_w";
-        String jsonDate = gnerateJson();
+        String jsonData = gnerateJson();
 
-        System.out.println(MenuHandler.createMenu(accessToken, jsonDate));
+        System.out.println(MenuHandler.createMenu(accessToken, jsonData));
+    }
+
+    @Test
+    public void queryMenuTest() {
+        String jsonData = MenuHandler.queryMenu(accessToken);
+
+        System.out.println(jsonData);
+
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONObject menuObject = jsonObject.getJSONObject("menu");
+        JSONArray buttonArray = menuObject.getJSONArray("button");
+
+        Menu menu = new Menu();
+        int cur = 0;
+        Button[] firstLevelButtons = new Button[3];
+        for (int i = 0; i < buttonArray.length(); i++) {
+            JSONObject button = (JSONObject) buttonArray.get(i);
+            JSONArray subButtonsJson = button.getJSONArray("sub_button");
+
+            // 解析一级菜单
+            if (subButtonsJson.length() <= 0) {
+                String type = button.get("type").toString();
+                if (StringUtils.equals(type, Button.ButtonType.CLICK.getValue())) {
+                    firstLevelButtons[cur] = getClickButton(button);
+                    cur++;
+                    continue;
+                }
+
+                if (StringUtils.equals(type, Button.ButtonType.VIEW.getValue())) {
+                    firstLevelButtons[cur] = getViewButton(button);
+                    cur++;
+                    continue;
+                }
+            } else {
+                // 有二级菜单
+                firstLevelButtons[cur] = getSubButtons(subButtonsJson);
+                cur++;
+            }
+        }
+
+        menu.setMenu(firstLevelButtons);
+
+        System.out.println(new JSONObject(menu.toString()).toString());
+    }
+
+    private Button.ViewButton getViewButton(JSONObject jsonObject) {
+        String name = jsonObject.get("name").toString();
+        String url = jsonObject.get("url").toString();
+
+        return new Button.ViewButton(name, url);
+    }
+
+    private Button.ClickButton getClickButton(JSONObject jsonObject) {
+        String name = jsonObject.get("name").toString();
+        String key = jsonObject.get("key").toString();
+
+        return new Button.ClickButton(name, key);
+    }
+
+    private Button.SubButton getSubButtons(JSONArray jsonArray) {
+        Button.SubButton subButton = new Button.SubButton();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String type = jsonObject.get("type").toString();
+
+            if (StringUtils.equals(type, Button.ButtonType.VIEW.getValue())) {
+                subButton.add(getViewButton(jsonObject));
+                continue;
+            }
+
+            if (StringUtils.equals(type, Button.ButtonType.CLICK.getValue())) {
+                subButton.add(getClickButton(jsonObject));
+            }
+        }
+
+        return subButton;
     }
 
     /**
