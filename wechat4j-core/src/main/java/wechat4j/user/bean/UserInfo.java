@@ -22,6 +22,23 @@ public class UserInfo implements Serializable {
     private Date subscribeTime;
     private String unionid;
 
+    public UserInfo() {
+    }
+
+    public UserInfo(Integer subscribe, String openid, String nickname, Integer sex, String city, String country, String province, String language, String headimgurl, Date subscribeTime, String unionid) {
+        this.subscribe = subscribe;
+        this.openid = openid;
+        this.nickname = nickname;
+        this.sex = sex;
+        this.city = city;
+        this.country = country;
+        this.province = province;
+        this.language = language;
+        this.headimgurl = headimgurl;
+        this.subscribeTime = subscribeTime;
+        this.unionid = unionid;
+    }
+
     public UserInfo(String openid) {
         this.openid = openid;
     }
