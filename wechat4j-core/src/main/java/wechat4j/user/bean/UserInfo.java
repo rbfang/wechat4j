@@ -10,10 +10,10 @@ import java.util.Date;
  * @date 2014/8/22.
  */
 public class UserInfo implements Serializable {
-    private int subscribe;
+    private Integer subscribe;
     private String openid;
     private String nickname;
-    private int sex;
+    private Integer sex;
     private String city;
     private String country;
     private String province;
@@ -21,6 +21,10 @@ public class UserInfo implements Serializable {
     private String headimgurl;
     private Date subscribeTime;
     private String unionid;
+
+    public UserInfo(String openid) {
+        this.openid = openid;
+    }
 
     public enum Sex {
         MALE(1), FEMALE(2), UNKNOW(0);
@@ -35,11 +39,11 @@ public class UserInfo implements Serializable {
         }
     }
 
-    public int getSubscribe() {
+    public Integer getSubscribe() {
         return subscribe;
     }
 
-    public void setSubscribe(int subscribe) {
+    public void setSubscribe(Integer subscribe) {
         this.subscribe = subscribe;
     }
 
@@ -59,11 +63,11 @@ public class UserInfo implements Serializable {
         this.nickname = nickname;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 

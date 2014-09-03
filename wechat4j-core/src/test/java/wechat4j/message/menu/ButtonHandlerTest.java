@@ -63,7 +63,7 @@ public class ButtonHandlerTest {
         }
 
         menu.setMenu(firstLevelButtons);
-
+        //TODO 这里好像JSON有一点点小问题哦。
         System.out.println(new JSONObject(menu.toString()).toString());
     }
 

@@ -17,7 +17,7 @@ public class MenuHandler implements HttpResponseCode, RequestUrl {
     private static final String QUERY = "menu/get?access_token=";
     private static final String DELETE = "menu/delete?access_token=";
 
-    public static boolean createMenu(String accessToken, String jsonDate) throws WechatException {
+    public static boolean createMenu(String accessToken, String jsonDate) {
         String url = BASE_URL + CREATE + accessToken;
 
         String result = HttpsRequest.doPostRequest(url, jsonDate).toString();
