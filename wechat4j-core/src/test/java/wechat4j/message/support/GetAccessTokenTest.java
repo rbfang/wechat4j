@@ -1,9 +1,10 @@
 package wechat4j.message.support;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import wechat4j.support.AccessTokenGetter;
 import wechat4j.support.bean.AccessToken;
 
+@Test(enabled = false)
 public class GetAccessTokenTest {
 
     @Test

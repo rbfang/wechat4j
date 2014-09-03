@@ -1,6 +1,6 @@
 package wechat4j.message;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import wechat4j.message.handler.AbstractReceiveMessageHandler;
 import wechat4j.message.handler.MessageHandlerFactory;
 

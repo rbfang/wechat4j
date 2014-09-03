@@ -1,5 +1,6 @@
 package wechat4j.user;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import wechat4j.support.HttpResponseCode;
 import wechat4j.support.HttpsRequest;
@@ -8,7 +9,9 @@ import wechat4j.user.bean.FollowerList;
 import wechat4j.user.bean.RemarkingUserName;
 import wechat4j.user.bean.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * UserOperator
@@ -17,7 +20,7 @@ import java.util.Date;
  * @date 2014/8/22.
  */
 public class UserOperator implements IUserOperator, HttpResponseCode, RequestUrl {
-    private static String ACCESS_TOKEN = "4Ryp03nxnyrRrE2Mdkk9IbMjq_ba1rQoYDeql5ytQbCUJRAmZY9vBTTmr4XOr6FaWFw4F7GZHsdJ_QobRvPqMA";
+    private static String ACCESS_TOKEN = "Glk5TrbugRFFTDskiPLGrJ64_05gJy7eBujF0Hkj7Ff5O7sC9EL8uWO8labTaF-5Yhe3Evkc52-ycvUgaeFI6w";
 
     @Override
     public boolean remarkUserName(String openId, String givenName) {
@@ -59,7 +62,23 @@ public class UserOperator implements IUserOperator, HttpResponseCode, RequestUrl
     }
 
     @Override
-    public FollowerList getFollwerList(String nextOpenId) {
-        return null;
+    public FollowerList getFollowerList(String nextOpenId) {
+        String url = BASE_URL + "user/get?access_token=" + ACCESS_TOKEN + "&net_openid=" + nextOpenId;
+        JSONObject resultJsonObject = HttpsRequest.doGetRequest(url);
+
+        List<String> openIdList = new ArrayList<String>();
+        JSONObject dataJsonObject = resultJsonObject.getJSONObject("data");
+        JSONArray openIdJsonArray = dataJsonObject.getJSONArray("openid");
+        for (int i = 0; i < openIdJsonArray.length(); i++) {
+            openIdList.add(openIdJsonArray.get(i).toString());
+        }
+
+        FollowerList followerList = new FollowerList();
+        followerList.setTotal(resultJsonObject.getLong("total"));
+        followerList.setCount(resultJsonObject.getInt("count"));
+        followerList.setOpenIdList(openIdList);
+        followerList.setNextOpenId(resultJsonObject.getString("next_openid"));
+
+        return followerList;
     }
 }

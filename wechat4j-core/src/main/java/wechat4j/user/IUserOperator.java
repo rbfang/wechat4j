@@ -34,5 +34,5 @@ public interface IUserOperator {
      * @param nextOpenId
      * @return
      */
-    FollowerList getFollwerList(String nextOpenId);
+    FollowerList getFollowerList(String nextOpenId);
 }

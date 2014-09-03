@@ -3,7 +3,6 @@ package wechat4j.message.handler;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
-import sun.reflect.generics.visitor.Reifier;
 import wechat4j.message.Message;
 import wechat4j.message.event.EventMessage;
 

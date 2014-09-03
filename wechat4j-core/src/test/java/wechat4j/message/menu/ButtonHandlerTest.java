@@ -3,7 +3,7 @@ package wechat4j.message.menu;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import wechat4j.menu.bean.Button;
 import wechat4j.menu.bean.Menu;
 import wechat4j.menu.bean.MenuHandler;
@@ -14,6 +14,7 @@ import wechat4j.menu.bean.MenuHandler;
  * @author renbin.fang.
  * @date 2014/9/1.
  */
+@Test(enabled = false)
 public class ButtonHandlerTest {
     private String accessToken = "GRB3oqJZYGmKAHEmVdHpzpaRSc3pSmVdS1UiDQ6kz40ydkibmgjMSho52EmA0Msh8mfMkErZX5iwIdF0x9yi7Q";
 

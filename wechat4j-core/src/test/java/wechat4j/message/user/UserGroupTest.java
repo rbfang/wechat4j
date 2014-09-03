@@ -1,6 +1,6 @@
 package wechat4j.message.user;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import wechat4j.user.group.IUserGroupOperator;
 import wechat4j.user.group.UserGroupOperator;
 import wechat4j.user.group.bean.Group;
@@ -13,6 +13,7 @@ import java.util.List;
  * @author renbin.fang.
  * @date 2014/9/3.
  */
+@Test(enabled = false)
 public class UserGroupTest {
     private static String accessToken = "4Ryp03nxnyrRrE2Mdkk9IarxE1E3mbKF2K5oXIheAApV_6nfU4Ah4G0oJbaZPsT_FVfqup6yq67Ri6xXJQNNCw";
 

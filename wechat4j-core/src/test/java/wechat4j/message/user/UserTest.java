@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import wechat4j.message.Configuration;
 import wechat4j.user.IUserOperator;
 import wechat4j.user.UserOperator;
+import wechat4j.user.bean.FollowerList;
 import wechat4j.user.bean.UserInfo;
 
 /**
@@ -13,8 +14,7 @@ import wechat4j.user.bean.UserInfo;
  * @date 2014/9/3.
  */
 @Test(enabled = false)
-public class RemarkingUserNameTest extends Configuration {
-    private static String ACCESS_TOKEN = "";
+public class UserTest extends Configuration {
     private IUserOperator userOperator = new UserOperator();
 
     @Test
@@ -29,5 +29,12 @@ public class RemarkingUserNameTest extends Configuration {
         UserInfo userinfo = userOperator.getUserInfo("o2Jcyt0RQOshDEJVsBXV3xdrs1k0");
 
         System.out.println(userinfo.toString());
+    }
+
+    @Test
+    public void getFollowerList() {
+        FollowerList followerList = userOperator.getFollowerList("");
+
+        System.out.println(followerList.toString());
     }
 }
