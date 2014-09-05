@@ -18,7 +18,7 @@ public class ReceiveMessageHandlerTest {
     @Test
     public void getTextMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-text-message.xml");
-        TextMessage textMessage = messageHandler.getMessage(inputStream);
+        TextMessage textMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(textMessage.toString());
     }
@@ -26,7 +26,7 @@ public class ReceiveMessageHandlerTest {
     @Test
     public void getImageMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-image-message.xml");
-        ImageMessage imageMessage = messageHandler.getMessage(inputStream);
+        ImageMessage imageMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(imageMessage.toString());
     }

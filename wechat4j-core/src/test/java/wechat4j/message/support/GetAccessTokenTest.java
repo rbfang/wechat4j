@@ -4,6 +4,11 @@ import org.testng.annotations.Test;
 import wechat4j.support.AccessTokenGetter;
 import wechat4j.support.bean.AccessToken;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Stack;
+
 @Test(enabled = false)
 public class GetAccessTokenTest {
 
@@ -14,4 +19,38 @@ public class GetAccessTokenTest {
         AccessToken accessToken = tokenGetter.getAccessToken();
         System.out.println(accessToken.toString());
     }
+
+    public static void main(String[] args) {
+        Class clazz = null;
+        try {
+            clazz = Class.forName("Method1");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Method methlist[] = clazz.getDeclaredMethods();
+
+        for(Method method: methlist){
+            method.getExceptionTypes();
+        }
+
+        try {
+            Constructor constructor = clazz.getConstructor(clazz);
+            try {
+                constructor.newInstance(new Integer(3));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }

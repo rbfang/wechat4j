@@ -7,10 +7,14 @@ package wechat4j.message.handler;
  * @date 2014/8/21.
  */
 public class MessageHandlerFactory {
-    private static AbstractReceiveMessageHandler messageHandler = new MessageHandler();
+    private static AbstractReceiveMessageHandler messageHandler = new ReceivedMessageHandler();
+
     private static AbstractReceiveMessageHandler eventMessageHandler = new EventMessageHandler();
     private static ISendMessageHandler sendMessageHandler = new SendMessageHandler();
 
+    private MessageHandlerFactory() {
+        throw new Error("Do not instance :(");
+    }
 
     public static AbstractReceiveMessageHandler getMessageHandler() {
         return messageHandler;

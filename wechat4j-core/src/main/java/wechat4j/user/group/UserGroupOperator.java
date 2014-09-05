@@ -1,8 +1,12 @@
 package wechat4j.user.group;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import wechat4j.support.Configuration;
 import wechat4j.support.HttpsRequest;
+import wechat4j.support.WechatException;
 import wechat4j.user.bean.UserInfo;
 import wechat4j.user.group.bean.Group;
 import wechat4j.user.group.bean.UserGroup;
@@ -17,25 +21,22 @@ import java.util.List;
  * @date 2014/8/22.
  */
 public class UserGroupOperator implements IUserGroupOperator {
-    private static String ACCESS_TOKEN = "T4aRsNv_95OQy4GFLR2oT2vKT5qc7R608_yB46KBIq2hWGYw1h3Os9vhwtgo9pSKA4yocQ29Y5JYu9cT9B3w5A";
-
-    //TODO TO handle exceptions
+    private Configuration conf;
+    private final Log logger = LogFactory.getLog(getClass());
 
     @Override
     public boolean createGroup(String groupName) {
-        String url = BASE_URL + "groups/create?access_token=" + ACCESS_TOKEN;
-        final Group group = new Group("朋友");
-        final UserGroup userGroup = new UserGroup() {
-            {
-                this.setGroup(group);
-            }
-        };
+        String url = BASE_URL + "groups/create?access_token=" + conf.getAccessToken();
+        Group group = new Group("朋友");
+        UserGroup userGroup = new UserGroup(group);
 
         JSONObject resultJsonObject = HttpsRequest.doPostRequest(url, new JSONObject(userGroup).toString());
         boolean success = false;
         try {
             int errcode = resultJsonObject.getInt("errcode");
-        } catch (Exception e) {
+            throw new WechatException("");
+        } catch (WechatException e) {
+
             System.out.println(e.toString());
 
             success = true;
@@ -46,7 +47,7 @@ public class UserGroupOperator implements IUserGroupOperator {
 
     @Override
     public List<Group> findAllGroup() {
-        String url = BASE_URL + "groups/get?access_token=" + ACCESS_TOKEN;
+        String url = BASE_URL + "groups/get?access_token=" + conf.getAccessToken();
         JSONObject result = HttpsRequest.doGetRequest(url);
 
         JSONArray jsonArray = result.getJSONArray("groups");
@@ -67,7 +68,7 @@ public class UserGroupOperator implements IUserGroupOperator {
 
     @Override
     public int findGroup(String openId) {
-        String url = BASE_URL + "groups/getid?access_token=" + ACCESS_TOKEN;
+        String url = BASE_URL + "groups/getid?access_token=" + conf.getAccessToken();
         UserInfo userInfo = new UserInfo(openId);
 
         JSONObject resultJsonObject = HttpsRequest.doPostRequest(url, new JSONObject(userInfo).toString());
@@ -83,10 +84,9 @@ public class UserGroupOperator implements IUserGroupOperator {
 
     @Override
     public boolean updateGroupName(Long groupId, String groupName) {
-        String url = BASE_URL + "groups/update?access_token=" + ACCESS_TOKEN;
+        String url = BASE_URL + "groups/update?access_token=" + conf.getAccessToken();
         Group group = new Group(groupId, groupName);
-        UserGroup userGroup = new UserGroup();
-        userGroup.setGroup(group);
+        UserGroup userGroup = new UserGroup(group);
 
         System.out.println(new JSONObject(userGroup).toString());
 
@@ -102,7 +102,7 @@ public class UserGroupOperator implements IUserGroupOperator {
 
     @Override
     public boolean moveToAnotherGroup(String openId, Integer groupId) {
-        String url = BASE_URL + "groups/members/update?access_token=" + ACCESS_TOKEN;
+        String url = BASE_URL + "groups/members/update?access_token=" + conf.getAccessToken();
         UserGroup.MovingGroup movingGroup = new UserGroup.MovingGroup(openId, groupId);
 
         JSONObject jsonObject = HttpsRequest.doPostRequest(url, new JSONObject(movingGroup).toString());
@@ -114,5 +114,9 @@ public class UserGroupOperator implements IUserGroupOperator {
         }
 
         return success;
+    }
+
+    public void setConf(Configuration conf) {
+        this.conf = conf;
     }
 }

@@ -18,7 +18,7 @@ public class EventMessageHandlerTest {
     public void getSubscribeMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-message.xml");
-        EventMessage eventMessage = messageHandler.getMessage(inputStream);
+        EventMessage eventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(eventMessage.toString());
     }
@@ -27,7 +27,7 @@ public class EventMessageHandlerTest {
     public void getUnsubscribeMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-unsubscribe-message.xml");
-        EventMessage eventMessage = messageHandler.getMessage(inputStream);
+        EventMessage eventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(eventMessage.toString());
     }
@@ -36,7 +36,7 @@ public class EventMessageHandlerTest {
     public void getScanSubscribeEventMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-scan-subscribe-message.xml");
-        ScanEventMessage scanEventMessage = messageHandler.getMessage(inputStream);
+        ScanEventMessage scanEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(scanEventMessage.toString());
     }
@@ -45,7 +45,7 @@ public class EventMessageHandlerTest {
     public void getScanEventMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-scan-message.xml");
-        ScanEventMessage scanEventMessage = messageHandler.getMessage(inputStream);
+        ScanEventMessage scanEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(scanEventMessage.toString());
     }
@@ -54,7 +54,7 @@ public class EventMessageHandlerTest {
     public void getLocationEventMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-location-message.xml");
-        LocationEventMessage locationEventMessage = messageHandler.getMessage(inputStream);
+        LocationEventMessage locationEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(locationEventMessage.toString());
     }
@@ -63,7 +63,7 @@ public class EventMessageHandlerTest {
     public void getCustomMenuClickEventMessage() {
         AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-custom-menu-message.xml");
-        CustomMenuEventMessage customMenuEventMessage = messageHandler.getMessage(inputStream);
+        CustomMenuEventMessage customMenuEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(customMenuEventMessage.toString());
     }

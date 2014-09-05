@@ -1,10 +1,9 @@
-package wechat4j.menu.bean;
+package wechat4j.menu;
 
 import org.json.JSONObject;
 import wechat4j.support.HttpResponseCode;
 import wechat4j.support.HttpsRequest;
 import wechat4j.support.RequestUrl;
-import wechat4j.support.WechatException;
 
 /**
  * MenuHandler
@@ -12,12 +11,19 @@ import wechat4j.support.WechatException;
  * @author renbin.fang.
  * @date 2014/9/1.
  */
-public class MenuHandler implements HttpResponseCode, RequestUrl {
+public class MenuHandler implements
+        IMenuHandler,
+        HttpResponseCode,
+        RequestUrl {
+
     private static final String CREATE = "menu/create?access_token=";
     private static final String QUERY = "menu/get?access_token=";
     private static final String DELETE = "menu/delete?access_token=";
 
-    public static boolean createMenu(String accessToken, String jsonDate) {
+
+
+    @Override
+    public boolean createMenu(String accessToken, String jsonDate) {
         String url = BASE_URL + CREATE + accessToken;
 
         String result = HttpsRequest.doPostRequest(url, jsonDate).toString();
@@ -33,13 +39,15 @@ public class MenuHandler implements HttpResponseCode, RequestUrl {
         return true;
     }
 
-    public static String queryMenu(String accessToken) {
+    @Override
+    public String queryMenu(String accessToken) {
         String url = BASE_URL + QUERY + accessToken;
 
         return HttpsRequest.doGetRequest(url).toString();
     }
 
-    public static boolean deleteMenu(String accessToken) {
+    @Override
+    public boolean deleteMenu(String accessToken) {
         String url = BASE_URL + DELETE + accessToken;
 
         String result = HttpsRequest.doGetRequest(url).toString();

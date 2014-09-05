@@ -93,4 +93,9 @@ public class EventMessageHandler extends AbstractReceiveMessageHandler {
         return new CustomMenuEventMessage((EventMessage) message,
                 xmlReader.getString("EventKey"));
     }
+
+    @Override
+    public <T extends Message> T getMessage(InputStream inputStream) {
+        return getMessageFromInputStream(inputStream);
+    }
 }

@@ -4,9 +4,10 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+import wechat4j.menu.IMenuHandler;
+import wechat4j.menu.MenuHandler;
 import wechat4j.menu.bean.Button;
 import wechat4j.menu.bean.Menu;
-import wechat4j.menu.bean.MenuHandler;
 
 /**
  * ButtonHandlerTest
@@ -18,16 +19,17 @@ import wechat4j.menu.bean.MenuHandler;
 public class ButtonHandlerTest {
     private String accessToken = "GRB3oqJZYGmKAHEmVdHpzpaRSc3pSmVdS1UiDQ6kz40ydkibmgjMSho52EmA0Msh8mfMkErZX5iwIdF0x9yi7Q";
 
+    IMenuHandler menuHandler = new MenuHandler();
     @Test
     public void createMenuTest() {
         String jsonData = gnerateMenuJson();
 
-        System.out.println(MenuHandler.createMenu(accessToken, jsonData));
+        System.out.println(menuHandler.createMenu(accessToken, jsonData));
     }
 
     @Test
     public void queryMenuTest() {
-        String jsonData = MenuHandler.queryMenu(accessToken);
+        String jsonData = menuHandler.queryMenu(accessToken);
 
         System.out.println(jsonData);
 

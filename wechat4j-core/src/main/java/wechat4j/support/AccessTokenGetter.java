@@ -1,13 +1,21 @@
 package wechat4j.support;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import wechat4j.support.bean.AccessToken;
 
 import java.util.Date;
 
-public class AccessTokenGetter implements HttpResponseCode, RequestUrl {
+public class AccessTokenGetter implements
+        IAccessTokenGetter,
+        HttpResponseCode,
+        RequestUrl {
+
     private String appId;
     private String appSecret;
+
+    public AccessTokenGetter() {
+    }
 
     /**
      * Constructor
@@ -20,7 +28,7 @@ public class AccessTokenGetter implements HttpResponseCode, RequestUrl {
         this.appSecret = appSecret;
     }
 
-
+    @Override
     public AccessToken getAccessToken() {
         String requestUrl = ACCESS_TOKEN_URL.replace("${APPID}", appId).replace("${APPSECRET}", appSecret);
 
@@ -32,5 +40,18 @@ public class AccessTokenGetter implements HttpResponseCode, RequestUrl {
         accessToken.setExpiresIn(jsonObject.getLong("expires_in"));
 
         return accessToken;
+    }
+
+    @Override
+    public AccessToken getAccessToken(String appId, String appSecret) {
+        if (StringUtils.isEmpty(this.appId)) {
+            this.appId = appId;
+        }
+
+        if (StringUtils.isEmpty(this.appSecret)) {
+            this.appSecret = appSecret;
+        }
+
+        return getAccessToken();
     }
 }

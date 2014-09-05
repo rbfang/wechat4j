@@ -9,20 +9,18 @@ package wechat4j.user.group.bean;
 public class UserGroup extends Group {
     private Group group;
 
-//TODO 不明白这里的构造方法为什么与内部静太类的构造方法冲突。
-//    public UserGroup(Group group) {
-//        this.group = group;
-//    }
-//
-//    public UserGroup(Long id, String name, Integer count, Group group) {
-//        super(id, name, count);
-//        this.group = group;
-//    }
-//
-//    public UserGroup(String name, Group group) {
-//        super(name);
-//        this.group = group;
-//    }
+    public UserGroup(Group group) {
+        this.group = group;
+    }
+
+    public UserGroup(Long id, String name, Integer count, Group group) {
+        super(id, name, count);
+        this.group = group;
+    }
+
+    public UserGroup(String name) {
+        super(name);
+    }
 
     public Group getGroup() {
         return group;
@@ -42,10 +40,18 @@ public class UserGroup extends Group {
     public static class UserGroups extends UserGroup {
         private Group[] groups;
 
-        public UserGroups() {
+        public UserGroups(Group group, Group[] groups) {
+            super(group);
+            this.groups = groups;
         }
 
-        public UserGroups(Group[] groups) {
+        public UserGroups(Long id, String name, Integer count, Group group, Group[] groups) {
+            super(id, name, count, group);
+            this.groups = groups;
+        }
+
+        public UserGroups(String name, Group group, Group[] groups) {
+            super(name);
             this.groups = groups;
         }
 

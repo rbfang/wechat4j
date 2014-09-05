@@ -16,14 +16,14 @@ import java.lang.reflect.Method;
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public abstract class AbstractReceiveMessageHandler {
+public abstract class AbstractReceiveMessageHandler implements MessageHandler {
     /**
      * Parse Message from xml stream
      *
      * @param inputStream
      * @return Subclass of {@link wechat4j.message.Message}
      */
-    public final <T extends Message> T getMessage(InputStream inputStream) {
+    public final <T extends Message> T getMessageFromInputStream(InputStream inputStream) {
         // Load new input stream
         reloadInputStream(inputStream);
 
