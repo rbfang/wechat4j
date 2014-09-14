@@ -1,4 +1,4 @@
-package wechat4j.menu.bean;
+package wechat4j.bean.menu;
 
 import java.util.Arrays;
 

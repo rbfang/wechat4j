@@ -1,15 +1,15 @@
-package wechat4j.user;
+package wechat4j.handler;
 
-import wechat4j.user.bean.FollowerList;
-import wechat4j.user.bean.UserInfo;
+import wechat4j.bean.user.FollowerList;
+import wechat4j.bean.user.UserInfo;
 
 /**
- * IUserOperator
+ * IUserHandler
  *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public interface IUserOperator {
+public interface IUserHandler {
     /**
      * 设置备注名
      *

@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
  */
 public class WechatFactory implements Serializable {
     private static Constructor<Wechat> constructor;
-    private static String CLAZZ = "wechat4j.menu.MenuHandler";
+    private static String CLAZZ = "wechat4j.handler.impl.MenuHandler";
 
     //TODO return wechat new instance
 }

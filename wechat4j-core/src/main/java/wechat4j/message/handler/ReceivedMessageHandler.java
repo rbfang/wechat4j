@@ -73,7 +73,7 @@ public class ReceivedMessageHandler extends AbstractReceiveMessageHandler {
     }
 
     @Override
-    public <T extends Message> T getMessage(InputStream inputStream) {
+    public Message getMessage(InputStream inputStream) {
         return getMessageFromInputStream(inputStream);
     }
 }

@@ -1,13 +1,14 @@
-package wechat4j.message.menu;
+package wechat4j.handler;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
-import wechat4j.menu.IMenuHandler;
-import wechat4j.menu.MenuHandler;
-import wechat4j.menu.bean.Button;
-import wechat4j.menu.bean.Menu;
+import wechat4j.WechatTestBase;
+import wechat4j.handler.IMenuHandler;
+import wechat4j.handler.impl.MenuHandler;
+import wechat4j.bean.menu.Button;
+import wechat4j.bean.menu.Menu;
 
 /**
  * ButtonHandlerTest
@@ -15,21 +16,20 @@ import wechat4j.menu.bean.Menu;
  * @author renbin.fang.
  * @date 2014/9/1.
  */
-@Test(enabled = false)
-public class ButtonHandlerTest {
-    private String accessToken = "GRB3oqJZYGmKAHEmVdHpzpaRSc3pSmVdS1UiDQ6kz40ydkibmgjMSho52EmA0Msh8mfMkErZX5iwIdF0x9yi7Q";
+@Test(enabled = true)
+public class ButtonHandlerTest extends WechatTestBase {
+    private IMenuHandler menuHandler = (IMenuHandler) handlerMap.get(MenuHandler.class.getName());
 
-    IMenuHandler menuHandler = new MenuHandler();
     @Test
     public void createMenuTest() {
         String jsonData = gnerateMenuJson();
 
-        System.out.println(menuHandler.createMenu(accessToken, jsonData));
+        System.out.println(menuHandler.createMenu(jsonData));
     }
 
     @Test
     public void queryMenuTest() {
-        String jsonData = menuHandler.queryMenu(accessToken);
+        String jsonData = menuHandler.queryMenu();
 
         System.out.println(jsonData);
 
@@ -61,13 +61,13 @@ public class ButtonHandlerTest {
             } else {
                 // 有二级菜单
                 firstLevelButtons[cur] = getSubButtons(subButtonsJson);
+                firstLevelButtons[cur].setName(button.getString("name"));
                 cur++;
             }
         }
 
         menu.setMenu(firstLevelButtons);
-        //TODO 这里好像JSON有一点点小问题哦。
-        System.out.println(new JSONObject(menu.toString()).toString());
+        System.out.println(menu.toString());
     }
 
     private Button.ViewButton getViewButton(JSONObject jsonObject) {

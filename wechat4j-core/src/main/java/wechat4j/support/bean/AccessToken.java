@@ -12,7 +12,7 @@ public class AccessToken {
     private String accessToken;
     private Date gotTokenTime;
     // 获取后有效期为7200秒
-    private Long ExpiresIn;
+    private Long expiresIn;
 
     public AccessToken() {
     }
@@ -20,7 +20,7 @@ public class AccessToken {
     public AccessToken(String accessToken, Date gotTokenTime, Long expiresIn) {
         this.accessToken = accessToken;
         this.gotTokenTime = gotTokenTime;
-        ExpiresIn = expiresIn;
+        expiresIn = expiresIn;
     }
 
     public String getAccessToken() {
@@ -40,11 +40,11 @@ public class AccessToken {
     }
 
     public Long getExpiresIn() {
-        return ExpiresIn;
+        return expiresIn;
     }
 
     public void setExpiresIn(Long expiresIn) {
-        ExpiresIn = expiresIn;
+        this.expiresIn = expiresIn;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AccessToken {
         return "AccessToken{" +
                 "accessToken='" + accessToken + '\'' +
                 ", gotTokenTime=" + gotTokenTime +
-                ", ExpiresIn=" + ExpiresIn +
+                ", expiresIn=" + expiresIn +
                 '}';
     }
 }

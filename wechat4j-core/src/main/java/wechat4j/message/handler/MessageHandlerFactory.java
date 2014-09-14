@@ -8,7 +8,6 @@ package wechat4j.message.handler;
  */
 public class MessageHandlerFactory {
     private static AbstractReceiveMessageHandler messageHandler = new ReceivedMessageHandler();
-
     private static AbstractReceiveMessageHandler eventMessageHandler = new EventMessageHandler();
     private static ISendMessageHandler sendMessageHandler = new SendMessageHandler();
 

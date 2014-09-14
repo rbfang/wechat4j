@@ -1,4 +1,4 @@
-package wechat4j.user.group.bean;
+package wechat4j.bean.user;
 
 /**
  * User group
@@ -13,7 +13,7 @@ public class UserGroup extends Group {
         this.group = group;
     }
 
-    public UserGroup(Long id, String name, Integer count, Group group) {
+    public UserGroup(Integer id, String name, Integer count, Group group) {
         super(id, name, count);
         this.group = group;
     }
@@ -45,7 +45,7 @@ public class UserGroup extends Group {
             this.groups = groups;
         }
 
-        public UserGroups(Long id, String name, Integer count, Group group, Group[] groups) {
+        public UserGroups(Integer id, String name, Integer count, Group group, Group[] groups) {
             super(id, name, count, group);
             this.groups = groups;
         }

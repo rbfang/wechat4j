@@ -8,8 +8,6 @@ import wechat4j.support.bean.AccessToken;
  * @author renbin.fang.
  * @date 2014/9/5.
  */
-public interface IAccessTokenGetter {
+public interface IAccessTokenHandler {
     public AccessToken getAccessToken();
-
-    public AccessToken getAccessToken(String appId, String appSecret);
 }

@@ -13,11 +13,12 @@ import wechat4j.support.bean.Signature;
 public interface Configuration {
     String getAccessToken();
 
-    Signature getSignature();
-
     AppSecret getAppSecret();
 
-    AuthToken getAuthToken();
+    String getAppId();
 
-    Configuration getInstance();
+    String getAppSercret();
+
+    void setAppSecret(String appId,
+                      String appSercret);
 }

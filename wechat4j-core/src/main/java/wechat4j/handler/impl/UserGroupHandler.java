@@ -1,15 +1,16 @@
-package wechat4j.user.group;
+package wechat4j.handler.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import wechat4j.bean.user.Group;
+import wechat4j.bean.user.UserGroup;
+import wechat4j.bean.user.UserInfo;
+import wechat4j.handler.IUserGroupHandler;
 import wechat4j.support.Configuration;
 import wechat4j.support.HttpsRequest;
 import wechat4j.support.WechatException;
-import wechat4j.user.bean.UserInfo;
-import wechat4j.user.group.bean.Group;
-import wechat4j.user.group.bean.UserGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,29 +21,24 @@ import java.util.List;
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public class UserGroupOperator implements IUserGroupOperator {
+public class UserGroupHandler implements IUserGroupHandler {
     private Configuration conf;
     private final Log logger = LogFactory.getLog(getClass());
 
     @Override
-    public boolean createGroup(String groupName) {
+    public Group createGroup(String groupName) {
         String url = BASE_URL + "groups/create?access_token=" + conf.getAccessToken();
-        Group group = new Group("朋友");
+        Group group = new Group(groupName);
         UserGroup userGroup = new UserGroup(group);
 
         JSONObject resultJsonObject = HttpsRequest.doPostRequest(url, new JSONObject(userGroup).toString());
-        boolean success = false;
-        try {
-            int errcode = resultJsonObject.getInt("errcode");
-            throw new WechatException("");
-        } catch (WechatException e) {
+        JSONObject groupObj = resultJsonObject.getJSONObject("group");
 
-            System.out.println(e.toString());
+        int groupId = groupObj.getInt("id");
+        group.setId(groupId);
+        group.setCount(0);
 
-            success = true;
-        }
-
-        return success;
+        return group;
     }
 
     @Override
@@ -55,7 +51,7 @@ public class UserGroupOperator implements IUserGroupOperator {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Group group = new Group(
-                    jsonObject.getLong("id"),
+                    jsonObject.getInt("id"),
                     jsonObject.getString("name"),
                     jsonObject.getInt("count")
             );
@@ -83,7 +79,7 @@ public class UserGroupOperator implements IUserGroupOperator {
     }
 
     @Override
-    public boolean updateGroupName(Long groupId, String groupName) {
+    public boolean updateGroupName(Integer groupId, String groupName) {
         String url = BASE_URL + "groups/update?access_token=" + conf.getAccessToken();
         Group group = new Group(groupId, groupName);
         UserGroup userGroup = new UserGroup(group);
@@ -114,9 +110,5 @@ public class UserGroupOperator implements IUserGroupOperator {
         }
 
         return success;
-    }
-
-    public void setConf(Configuration conf) {
-        this.conf = conf;
     }
 }

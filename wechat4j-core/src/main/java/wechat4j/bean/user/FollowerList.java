@@ -1,4 +1,4 @@
-package wechat4j.user.bean;
+package wechat4j.bean.user;
 
 import java.io.Serializable;
 import java.util.List;

@@ -13,12 +13,12 @@ import java.io.InputStream;
  * @date 2014/8/27.
  */
 public class ReceiveMessageHandlerTest {
-    private static AbstractReceiveMessageHandler messageHandler = MessageHandlerFactory.getMessageHandler();
+    private AbstractReceiveMessageHandler messageHandler = MessageHandlerFactory.getMessageHandler();
 
     @Test
     public void getTextMessageTest() {
         InputStream inputStream = getClass().getResourceAsStream("/recived-text-message.xml");
-        TextMessage textMessage = messageHandler.getMessageFromInputStream(inputStream);
+        Message textMessage = messageHandler.getMessageFromInputStream(inputStream);
 
         System.out.println(textMessage.toString());
     }

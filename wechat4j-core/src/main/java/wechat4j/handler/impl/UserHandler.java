@@ -1,30 +1,32 @@
-package wechat4j.user;
+package wechat4j.handler.impl;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import wechat4j.bean.user.FollowerList;
+import wechat4j.bean.user.RemarkingUserName;
+import wechat4j.bean.user.UserInfo;
+import wechat4j.handler.IUserHandler;
+import wechat4j.support.Configuration;
 import wechat4j.support.HttpResponseCode;
 import wechat4j.support.HttpsRequest;
 import wechat4j.support.RequestUrl;
-import wechat4j.user.bean.FollowerList;
-import wechat4j.user.bean.RemarkingUserName;
-import wechat4j.user.bean.UserInfo;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * UserOperator
+ * UserHandler
  *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public class UserOperator implements IUserOperator, HttpResponseCode, RequestUrl {
-    private static String ACCESS_TOKEN = "Glk5TrbugRFFTDskiPLGrJ64_05gJy7eBujF0Hkj7Ff5O7sC9EL8uWO8labTaF-5Yhe3Evkc52-ycvUgaeFI6w";
+public class UserHandler implements IUserHandler, HttpResponseCode, RequestUrl {
+    private Configuration conf;
 
     @Override
     public boolean remarkUserName(String openId, String givenName) {
-        String url = BASE_URL + "user/info/updateremark?access_token=" + ACCESS_TOKEN;
+        String url = BASE_URL + "user/info/updateremark?access_token=" + conf.getAccessToken();
         RemarkingUserName remarkingUserName = new RemarkingUserName(openId, givenName);
 
         JSONObject resultJsonObject = HttpsRequest.doPostRequest(url, new JSONObject(remarkingUserName).toString());
@@ -39,7 +41,7 @@ public class UserOperator implements IUserOperator, HttpResponseCode, RequestUrl
 
     @Override
     public UserInfo getUserInfo(String openId) {
-        String url = BASE_URL + "user/info?access_token=" + ACCESS_TOKEN + "&openid=" + openId + "&lang=zh_CN";
+        String url = BASE_URL + "user/info?access_token=" + conf.getAccessToken() + "&openid=" + openId + "&lang=zh_CN";
 
         JSONObject resultJsonObject = HttpsRequest.doGetRequest(url);
 
@@ -63,7 +65,7 @@ public class UserOperator implements IUserOperator, HttpResponseCode, RequestUrl
 
     @Override
     public FollowerList getFollowerList(String nextOpenId) {
-        String url = BASE_URL + "user/get?access_token=" + ACCESS_TOKEN + "&net_openid=" + nextOpenId;
+        String url = BASE_URL + "user/get?access_token=" + conf.getAccessToken() + "&net_openid=" + nextOpenId;
         JSONObject resultJsonObject = HttpsRequest.doGetRequest(url);
 
         List<String> openIdList = new ArrayList<String>();

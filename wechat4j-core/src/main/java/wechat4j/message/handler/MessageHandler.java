@@ -9,5 +9,5 @@ import java.io.InputStream;
  * @date 2014/9/5.
  */
 public interface MessageHandler {
-    <T extends Message> T getMessage(InputStream inputStream);
+    Message getMessage(InputStream inputStream);
 }

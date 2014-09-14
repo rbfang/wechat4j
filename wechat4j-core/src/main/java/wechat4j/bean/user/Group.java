@@ -1,4 +1,4 @@
-package wechat4j.user.group.bean;
+package wechat4j.bean.user;
 
 /**
  * Group
@@ -7,20 +7,20 @@ package wechat4j.user.group.bean;
  * @date 2014/9/3.
  */
 public class Group {
-    private Long id;
+    private Integer id;
     private String name;
     private Integer count;
 
     public Group() {
     }
 
-    public Group(Long id, String name, Integer count) {
+    public Group(Integer id, String name, Integer count) {
         this.id = id;
         this.name = name;
         this.count = count;
     }
 
-    public Group(Long id, String name) {
+    public Group(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -30,11 +30,11 @@ public class Group {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

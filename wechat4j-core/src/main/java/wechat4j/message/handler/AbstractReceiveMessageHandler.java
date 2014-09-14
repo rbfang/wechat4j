@@ -18,19 +18,19 @@ import java.lang.reflect.Method;
  */
 public abstract class AbstractReceiveMessageHandler implements MessageHandler {
     /**
-     * Parse Message from xml stream
+     * Parse Message from xml stream template method
      *
      * @param inputStream
      * @return Subclass of {@link wechat4j.message.Message}
      */
     public final <T extends Message> T getMessageFromInputStream(InputStream inputStream) {
-        // Load new input stream
+        // 1st. Load new input stream
         reloadInputStream(inputStream);
 
-        // Get message header
+        // 2nd. Get message header
         Message message = getMessageHeader();
 
-        // Find key word of method
+        // 3rd. Find key word of method
         String keyWordOfMethod;
         if (StringUtils.equals(message.getMsgType(), Message.ReceivedType.EVENT.getValue())) {
             message = getEventMessageHeader(message);
@@ -39,7 +39,7 @@ public abstract class AbstractReceiveMessageHandler implements MessageHandler {
             keyWordOfMethod = message.getMsgType();
         }
 
-        // Get class using reflection and invoking the method
+        // 4th. Get class using reflection and invoking the method
         Object obj = null;
         try {
             Class<?> clazz = Class.forName(getClassName());
@@ -78,6 +78,7 @@ public abstract class AbstractReceiveMessageHandler implements MessageHandler {
      * @param method
      * @return true or false
      */
+    //TODO 这里判断不够明确清楚。使用正则表达式来判断应该不错。
     private boolean isMessageMethod(String keyWordOfMethod, Method method) {
         return method.getName().startsWith("get")
                 && StringUtils.containsIgnoreCase(method.getName(), keyWordOfMethod);

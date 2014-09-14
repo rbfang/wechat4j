@@ -1,6 +1,10 @@
-package wechat4j.message.event;
+package wechat4j.message;
 
 import org.testng.annotations.Test;
+import wechat4j.message.event.CustomMenuEventMessage;
+import wechat4j.message.event.EventMessage;
+import wechat4j.message.event.LocationEventMessage;
+import wechat4j.message.event.ScanEventMessage;
 import wechat4j.message.handler.AbstractReceiveMessageHandler;
 import wechat4j.message.handler.EventMessageHandler;
 
@@ -13,10 +17,10 @@ import java.io.InputStream;
  * @date 2014/8/27.
  */
 public class EventMessageHandlerTest {
+    private AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
 
     @Test
     public void getSubscribeMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-message.xml");
         EventMessage eventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
@@ -25,7 +29,6 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getUnsubscribeMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-unsubscribe-message.xml");
         EventMessage eventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
@@ -34,7 +37,6 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getScanSubscribeEventMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-scan-subscribe-message.xml");
         ScanEventMessage scanEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
@@ -43,7 +45,6 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getScanEventMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-scan-message.xml");
         ScanEventMessage scanEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
@@ -52,7 +53,6 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getLocationEventMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-location-message.xml");
         LocationEventMessage locationEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
@@ -61,7 +61,6 @@ public class EventMessageHandlerTest {
 
     @Test
     public void getCustomMenuClickEventMessage() {
-        AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
         InputStream inputStream = getClass().getResourceAsStream("/event/event-custom-menu-message.xml");
         CustomMenuEventMessage customMenuEventMessage = messageHandler.getMessageFromInputStream(inputStream);
 
