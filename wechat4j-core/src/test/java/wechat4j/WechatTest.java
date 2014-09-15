@@ -1,6 +1,9 @@
 package wechat4j;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.lang.reflect.Field;
+import java.util.Date;
 
 /**
  * @author renbin.fang.
@@ -16,5 +19,9 @@ public class WechatTest {
 //        field.set(obj, "aaa");
 //
 //        System.out.println(field.get(obj));
+
+        Date date = new Date();
+        System.out.println(date);
+        System.out.println(new Date(date.getTime() + 7200 * 1000));
     }
 }

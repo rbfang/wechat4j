@@ -14,8 +14,8 @@ import wechat4j.message.handler.MessageHandler;
  */
 public interface Wechat extends java.io.Serializable,
         MessageHandler,
-        IMenuHandler,
         ISendMessageHandler,
+        IMenuHandler,
         IUserGroupHandler,
         IUserHandler {
 }

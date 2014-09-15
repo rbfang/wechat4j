@@ -10,14 +10,14 @@ import java.io.Serializable;
  */
 public class AppSecret implements Serializable {
     private String appId;
-    private String appSercret;
+    private String appSecret;
 
     public AppSecret() {
     }
 
-    public AppSecret(String appId, String appSercret) {
+    public AppSecret(String appId, String appSecret) {
         this.appId = appId;
-        this.appSercret = appSercret;
+        this.appSecret = appSecret;
     }
 
     public String getAppId() {
@@ -28,11 +28,19 @@ public class AppSecret implements Serializable {
         this.appId = appId;
     }
 
-    public String getAppSercret() {
-        return appSercret;
+    public String getAppSecret() {
+        return appSecret;
     }
 
-    public void setAppSercret(String appSercret) {
-        this.appSercret = appSercret;
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
+    @Override
+    public String toString() {
+        return "AppSecret{" +
+                "appId='" + appId + '\'' +
+                ", appSecret='" + appSecret + '\'' +
+                '}';
     }
 }

@@ -5,6 +5,7 @@ import org.apache.commons.configuration.XMLConfiguration;
 import wechat4j.message.Message;
 import wechat4j.message.NewsMessage;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @date 2014/8/22.
  */
 public class SendMessageHandler implements ISendMessageHandler {
-    private static final String TEMPLATE_PATH = "/wechat-template.xml";
+    private static final String TEMPLATE_PATH = File.separator + "wechat-template.xml";
     private static XMLConfiguration replyTemplate;
 
     private final static String MSG_START = "<![CDATA[";

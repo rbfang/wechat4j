@@ -4,9 +4,11 @@ import org.apache.commons.lang.StringUtils;
 import wechat4j.support.bean.AccessToken;
 import wechat4j.support.bean.AppSecret;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * ConfigurationBase
@@ -16,47 +18,57 @@ import java.lang.reflect.Method;
  */
 public class ConfigurationBase implements Configuration {
     private Configuration conf;
-    private AccessToken accessToken;
-    private AppSecret appSecret = new AppSecret();
-    private IAccessTokenHandler accessTokenHandler;
+    private static AccessToken accessToken;
+    private static AppSecret appSecret;
+    private static IAccessTokenHandler accessTokenHandler;
+
+    static {
+        // 1st. Loading properties
+        final String WECHAT4J_PROPERTIES = File.separator + "wechat4j.properties";
+        PropertiesReader propertiesReader = new PropertiesReader(WECHAT4J_PROPERTIES);
+        propertiesReader.load();
+
+        // 2nd. Getting appid and appsecret
+        String appIdStr = propertiesReader.getString("appId");
+        String appSecretStr = propertiesReader.getString("appSecret");
+        appSecret = new AppSecret(appIdStr, appSecretStr);
+
+        // 3rd. Requesting access token from the remote
+        accessToken = accessTokenHandler.getAccessToken();
+    }
 
 
     @Override
     public String getAccessToken() {
         if (accessToken == null) {
-            accessToken = requsetAccessToken();
+            accessToken = requestAccessToken();
         }
 
         return accessToken.getAccessToken();
     }
 
     @Override
-    public AppSecret getAppSecret() {
-        return appSecret;
-    }
-
-    @Override
     public String getAppId() {
-        return appSecret.getAppId();
+        return this.appSecret.getAppId();
     }
 
     @Override
-    public String getAppSercret() {
-        return appSecret.getAppSercret();
+    public String getAppSecret() {
+        return this.appSecret.getAppSecret();
     }
 
     @Override
-    public void setAppSecret(String appId, String appSercret) {
+    public void setAppSecret(String appId, String appSecret) {
         this.appSecret.setAppId(appId);
-        this.appSecret.setAppSercret(appSercret);
+        this.appSecret.setAppSecret(appSecret);
     }
 
     /**
-     * 获取access token
+     * Getting access token
      *
      * @return {@link wechat4j.support.bean.AccessToken}
      */
-    private AccessToken requsetAccessToken() {
+    private AccessToken requestAccessToken() {
         if (accessTokenHandler == null) {
             accessTokenHandler = new AccessTokenHandler();
         }
@@ -68,8 +80,11 @@ public class ConfigurationBase implements Configuration {
             accessTokenHandler = (IAccessTokenHandler) clazz.newInstance();
             if (conf == null) {
                 conf = new ConfigurationBase();
-                //TODO 如果appid和appsercret的值为空，这里应该做一个读取xml或者properties之类的载入顺序的调用。
-                conf.setAppSecret(appSecret.getAppId(), appSecret.getAppSercret());
+
+                String appIdStr = this.appSecret.getAppId();
+                String appSecretStr = this.appSecret.getAppSecret();
+
+                conf.setAppSecret(appIdStr, appSecretStr);
             }
             field.set(accessTokenHandler, conf);
 
@@ -79,8 +94,24 @@ public class ConfigurationBase implements Configuration {
                     continue;
                 }
 
-                method.invoke(accessTokenHandler);
-                break;
+                // It will request access token from wechat server if access token is null
+                if (accessToken == null) {
+                    accessToken = (AccessToken) method.invoke(accessTokenHandler);
+
+                    break;
+                }
+
+                if (accessToken != null) {
+                    Date gotTokenTime = accessToken.getGotTokenTime();
+                    Date disabledTime = new Date(gotTokenTime.getTime() * accessToken.getExpiresIn() * 1000);
+                    Date now = new Date();
+                    // Invoking access token handler depends on token disabled time.
+                    if (now.getTime() > disabledTime.getTime()) {
+                        accessToken = (AccessToken) method.invoke(accessTokenHandler);
+                    }
+
+                    break;
+                }
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

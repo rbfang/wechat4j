@@ -1,9 +1,5 @@
 package wechat4j.support;
 
-import wechat4j.support.bean.AppSecret;
-import wechat4j.support.bean.AuthToken;
-import wechat4j.support.bean.Signature;
-
 /**
  * Configuration
  *
@@ -13,12 +9,10 @@ import wechat4j.support.bean.Signature;
 public interface Configuration {
     String getAccessToken();
 
-    AppSecret getAppSecret();
-
     String getAppId();
 
-    String getAppSercret();
+    String getAppSecret();
 
     void setAppSecret(String appId,
-                      String appSercret);
+                      String appSecret);
 }

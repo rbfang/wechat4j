@@ -14,7 +14,7 @@ public class AccessTokenHandler implements
 
     @Override
     public AccessToken getAccessToken() {
-        String requestUrl = ACCESS_TOKEN_URL.replace("${APPID}", conf.getAppId()).replace("${APPSECRET}", conf.getAppSercret());
+        String requestUrl = ACCESS_TOKEN_URL.replace("${APPID}", conf.getAppId()).replace("${APPSECRET}", conf.getAppSecret());
 
         JSONObject jsonObject = HttpsRequest.doGetRequest(requestUrl);
 
