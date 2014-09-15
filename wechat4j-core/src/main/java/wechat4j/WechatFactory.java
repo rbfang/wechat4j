@@ -4,12 +4,19 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 /**
+ * WechatFactory
+ *
  * @author renbin.fang.
  * @date 2014/9/4.
  */
 public class WechatFactory implements Serializable {
-    private static Constructor<Wechat> constructor;
-    private static String CLAZZ = "wechat4j.handler.impl.MenuHandler";
+    private static Wechat wechat = new WeChatImpl();
 
-    //TODO return wechat new instance
+    public static Wechat newInstance() {
+        return wechat;
+    }
+
+    private WechatFactory() {
+        throw new Error("Do not instance :(");
+    }
 }

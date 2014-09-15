@@ -6,6 +6,7 @@ import wechat4j.handler.IUserGroupHandler;
 import wechat4j.handler.IUserHandler;
 import wechat4j.message.handler.ISendMessageHandler;
 import wechat4j.message.handler.MessageHandler;
+import wechat4j.message.handler.MessageHandlerFactory;
 import wechat4j.support.Configuration;
 import wechat4j.support.ConfigurationBase;
 
@@ -28,26 +29,14 @@ abstract class AbstractWechat implements Wechat {
     protected static IUserGroupHandler userGroupHandler;
     protected static IUserHandler userHandler;
 
-    private Configuration conf;
-    private final String packageName = "wechat4j.handler.impl";
-    protected Map<String, Object> handlerMap = new HashMap<String, Object>();
-
-    public static void main(String[] args) {
-        Field[] fields = AbstractWechat.class.getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            System.out.println(field.getName());
-        }
-
-        String clazzName = AbstractWechat.class.getName();
-        String[] strings = clazzName.split("\\.");
-        System.out.println(strings[strings.length - 1]);
-    }
+    private static Configuration conf;
+    private static final String packageName = "wechat4j.handler.impl";
+    protected static Map<String, Object> objectMap = new HashMap<String, Object>();
 
     // 1st. 把handler对象都Put到map
     // 2nd. 获取本类中的field的handler接口
     // 3rd. set field 的值为handler对象
-    {
+    static {
         conf = new ConfigurationBase();
         try {
             // 1st. 利用反射将实例化wechat4j.handler.impl下实现类
@@ -65,20 +54,23 @@ abstract class AbstractWechat implements Wechat {
                 Object obj = clazz.newInstance();
                 field.set(obj, conf);
 
-                handlerMap.put(getClassName(clazz.getName()).toUpperCase(), obj);
+                objectMap.put(getClassName(clazz.getName()).toUpperCase(), obj);
             }
 
             // 3rd. 将this抽象类中的handler接口都赋于实例
-            Field[] fields = this.getClass().getDeclaredFields();
+            Field[] fields = AbstractWechat.class.getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
                 String fieldName = field.getName().toUpperCase();
-                if (!StringUtils.contains(fieldName, "MESSAGE")) {
-                    field.set(fieldName, handlerMap.get(fieldName.toUpperCase()));
-                } else {
-                    //TODO 处理MESSAGE的实例
+                //除了Message Handler的接口赋值实例化后的对象
+                if (!StringUtils.contains(fieldName, "MESSAGE") && StringUtils.contains(fieldName, "HANDLER")) {
+                    field.set(fieldName, objectMap.get(fieldName.toUpperCase()));
                 }
             }
+
+            messageHandler = MessageHandlerFactory.getMessageHandler();
+            eventMessageHandler = MessageHandlerFactory.getEventMessageHandler();
+            sendMessageHandler = MessageHandlerFactory.getSendMessageHandler();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -101,7 +93,7 @@ abstract class AbstractWechat implements Wechat {
      * @throws java.io.IOException
      * @see [http://www.dzone.com/snippets/get-all-classes-within-package]
      */
-    private Class[] getClasses(String packageName)
+    private static Class[] getClasses(String packageName)
             throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
@@ -131,7 +123,7 @@ abstract class AbstractWechat implements Wechat {
      * @throws ClassNotFoundException
      * @see [http://www.dzone.com/snippets/get-all-classes-within-package]
      */
-    private List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
+    private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
         List<Class> classes = new ArrayList<Class>();
         if (!directory.exists()) {
             return classes;
@@ -156,7 +148,7 @@ abstract class AbstractWechat implements Wechat {
      * @param clazzName
      * @return
      */
-    private String getClassName(String clazzName) {
+    private static String getClassName(String clazzName) {
         String[] strings = clazzName.split("\\.");
         String value = null;
         if (strings.length > 0) {

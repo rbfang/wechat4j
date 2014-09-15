@@ -1,21 +1,17 @@
-package wechat4j;
+package wechat4j.examples.usergroup;
 
+import wechat4j.Wechat;
+import wechat4j.WechatFactory;
 import wechat4j.bean.user.Group;
 
 import java.util.List;
 
-/**
- * WechatTest
- *
- * @author renbin.fang.
- * @date 2014/9/5.
- */
-public class WechatTest {
+public class GetAllGroups {
     public static void main(String[] args) {
         Wechat wechat = WechatFactory.newInstance();
-        List<Group> groups = wechat.findAllGroup();
+        List<Group> groupList = wechat.findAllGroup();
 
-        for (Group group : groups) {
+        for (Group group : groupList) {
             System.out.println(group.toString());
         }
     }

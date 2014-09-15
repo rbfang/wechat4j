@@ -17,7 +17,7 @@ import java.util.Date;
  * @date 2014/9/4.
  */
 public class ConfigurationBase implements Configuration {
-    private Configuration conf;
+    private static Configuration conf = new ConfigurationBase();
     private static AccessToken accessToken;
     private static AppSecret appSecret;
     private static IAccessTokenHandler accessTokenHandler;
@@ -33,7 +33,28 @@ public class ConfigurationBase implements Configuration {
         String appSecretStr = propertiesReader.getString("appSecret");
         appSecret = new AppSecret(appIdStr, appSecretStr);
 
+        conf.setAppSecret(appIdStr, appSecretStr);
+
         // 3rd. Requesting access token from the remote
+        try {
+            Class<?> clazz = Class.forName(AccessTokenHandler.class.getName());
+            Field field = clazz.getDeclaredField("conf");
+            field.setAccessible(true);
+
+            Object obj = clazz.newInstance();
+            field.set(obj, conf);
+
+            accessTokenHandler = (IAccessTokenHandler) obj;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
         accessToken = accessTokenHandler.getAccessToken();
     }
 
