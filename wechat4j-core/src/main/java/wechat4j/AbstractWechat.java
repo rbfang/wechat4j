@@ -7,6 +7,7 @@ import wechat4j.handler.IUserHandler;
 import wechat4j.message.handler.ISendMessageHandler;
 import wechat4j.message.handler.MessageHandler;
 import wechat4j.message.handler.MessageHandlerFactory;
+import wechat4j.message.handler.SendMessageHandler;
 import wechat4j.support.Configuration;
 import wechat4j.support.ConfigurationBase;
 
@@ -17,11 +18,13 @@ import java.net.URL;
 import java.util.*;
 
 /**
+ * AbstractWechat
+ *
  * @author renbin.fang.
  * @date 2014/9/5.
  */
 abstract class AbstractWechat implements Wechat {
-    protected static MessageHandler messageHandler;
+    protected static MessageHandler commonMessageHandler;
     protected static MessageHandler eventMessageHandler;
     protected static ISendMessageHandler sendMessageHandler;
 
@@ -36,6 +39,7 @@ abstract class AbstractWechat implements Wechat {
     // 1st. 把handler对象都Put到map
     // 2nd. 获取本类中的field的handler接口
     // 3rd. set field 的值为handler对象
+    //TODO 提供两种加载机制：eager, lazy
     static {
         conf = new ConfigurationBase();
         try {
@@ -68,9 +72,9 @@ abstract class AbstractWechat implements Wechat {
                 }
             }
 
-            messageHandler = MessageHandlerFactory.getMessageHandler();
-            eventMessageHandler = MessageHandlerFactory.getEventMessageHandler();
-            sendMessageHandler = MessageHandlerFactory.getSendMessageHandler();
+            commonMessageHandler = MessageHandlerFactory.getMessageHandler("COMMON");
+            eventMessageHandler = MessageHandlerFactory.getMessageHandler("EVENT");
+            sendMessageHandler = new SendMessageHandler();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

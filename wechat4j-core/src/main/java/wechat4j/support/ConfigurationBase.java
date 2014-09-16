@@ -24,7 +24,7 @@ public class ConfigurationBase implements Configuration {
 
     static {
         // 1st. Loading properties
-        final String WECHAT4J_PROPERTIES = File.separator + "wechat4j.properties";
+        final String WECHAT4J_PROPERTIES = "/wechat4j.properties";
         PropertiesReader propertiesReader = new PropertiesReader(WECHAT4J_PROPERTIES);
         propertiesReader.load();
 

@@ -13,8 +13,9 @@ import java.io.InputStream;
  * @author renbin.fang.
  * @date 2014/8/27.
  */
-public class ReceiveMessageHandlerTest {
-    private MessageHandler messageHandler = MessageHandlerFactory.getMessageHandler();
+public class CommonMessageHandlerTest {
+    private static final String handlerType = MessageHandlerFactory.HandlerType.COMMON.toString();
+    private MessageHandler messageHandler = MessageHandlerFactory.getMessageHandler(handlerType);
 
     @Test
     public void getTextMessageTest() {

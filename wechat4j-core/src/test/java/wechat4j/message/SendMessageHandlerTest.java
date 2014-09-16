@@ -3,6 +3,7 @@ package wechat4j.message;
 import org.testng.annotations.Test;
 import wechat4j.message.handler.ISendMessageHandler;
 import wechat4j.message.handler.MessageHandlerFactory;
+import wechat4j.message.handler.SendMessageHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class SendMessageHandlerTest {
     private Message message = new Message("toUserName", "fromUserName", "123123123", "text");
 
-    private static ISendMessageHandler sendMessageHandler = MessageHandlerFactory.getSendMessageHandler();
+    private static ISendMessageHandler sendMessageHandler = new SendMessageHandler();
 
     @Test
     public void generateTextMessage() {

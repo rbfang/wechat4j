@@ -14,5 +14,7 @@ public class GetAllGroups {
         for (Group group : groupList) {
             System.out.println(group.toString());
         }
+
+        System.exit(0);
     }
 }

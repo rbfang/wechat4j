@@ -32,7 +32,7 @@ public class WeChatImpl extends AbstractWechat {
             if (StringUtils.equals(msgType, Message.ReceivedType.EVENT.toString())) {
                 message = eventMessageHandler.getMessage(inputStream);
             } else {
-                message = messageHandler.getMessage(inputStream);
+                message = commonMessageHandler.getMessage(inputStream);
             }
 
         } catch (org.apache.commons.configuration.ConfigurationException e) {

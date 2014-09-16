@@ -14,7 +14,7 @@ import java.io.InputStream;
  * @author renbin.fang.
  * @date 2014/8/27.
  */
-public class EventMessageHandler extends AbstractReceiveMessageHandler {
+public class EventMessageHandler extends AbstractReceivingMessageHandler {
     private static XMLConfiguration xmlReader;
 
     @Override

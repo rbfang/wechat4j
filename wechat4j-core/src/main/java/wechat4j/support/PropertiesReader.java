@@ -37,6 +37,7 @@ public class PropertiesReader {
      * Loading properties from file
      */
     public void load() {
+        String resourcePath = this.getClass().getResource(propertiesPath).getFile();
         File propertiesFile = new File(getClass().getResource(propertiesPath).getFile());
         if (!propertiesFile.exists()) {
             logger.error("properties file does not exist. path=" + propertiesPath);

@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public abstract class AbstractReceiveMessageHandler implements MessageHandler {
+public abstract class AbstractReceivingMessageHandler implements MessageHandler {
     /**
      * Parse Message from xml stream template method
      *

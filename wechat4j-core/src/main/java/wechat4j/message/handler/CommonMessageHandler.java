@@ -6,12 +6,12 @@ import wechat4j.message.*;
 import java.io.InputStream;
 
 /**
- * Receive message handler
+ * Common message handler
  *
  * @author renbin.fang.
  * @date 2014/8/21.
  */
-public class ReceivedMessageHandler extends AbstractReceiveMessageHandler {
+public class CommonMessageHandler extends AbstractReceivingMessageHandler {
     private static XMLConfiguration xmlReader;
 
     @Override
