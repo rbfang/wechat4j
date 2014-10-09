@@ -11,7 +11,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * IReceiveMessageOperator
+ * 接收消息处理器抽象类，由
+ * 1、普通消息 {@link wechat4j.message.handler.CommonMessageHandler}
+ * 2、事件消息 {@link wechat4j.message.handler.EventMessageHandler}
+ * 来实现，实现思路先判断事件类型，然后再根据消息类型来调用可以处理该类型消息的方法。
  *
  * @author renbin.fang.
  * @date 2014/8/22.
@@ -78,7 +81,6 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
      * @param method
      * @return true or false
      */
-    //TODO 这里判断不够明确清楚。使用正则表达式来判断应该不错。
     private boolean isMessageMethod(String keyWordOfMethod, Method method) {
         return method.getName().startsWith("get")
                 && StringUtils.containsIgnoreCase(method.getName(), keyWordOfMethod);
@@ -104,7 +106,7 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
     /**
      * Get method header from input stream
      *
-     * @return
+     * @return {@link wechat4j.message.Message}
      */
     protected Message getMessageHeader() {
         return new Message(
@@ -119,7 +121,7 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
      * Get event message header
      *
      * @param message {@link wechat4j.message.Message}
-     * @return
+     * @return {@link wechat4j.message.event.EventMessage}
      */
     protected EventMessage getEventMessageHeader(Message message) {
         String event = getXmlReader().getString("Event");

@@ -34,7 +34,6 @@ public class WeChatImpl extends AbstractWechat {
             } else {
                 message = commonMessageHandler.getMessage(inputStream);
             }
-
         } catch (org.apache.commons.configuration.ConfigurationException e) {
             e.printStackTrace();
         }

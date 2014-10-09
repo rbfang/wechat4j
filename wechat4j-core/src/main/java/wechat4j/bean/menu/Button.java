@@ -13,9 +13,15 @@ import java.util.List;
 public class Button implements Serializable {
     private String name;
 
+    /**
+     * Constructor
+     */
     public Button() {
     }
 
+    /**
+     * 跳转URL按钮
+     */
     public static class ViewButton extends Button {
         private String type = ButtonType.VIEW.getValue();
         private String url;
@@ -51,6 +57,10 @@ public class Button implements Serializable {
     }
 
 
+    /**
+     * 点击按钮
+     * 用户点击click类型按钮后，微信服务器会通过消息接口推送消息类型为event
+     */
     public static class ClickButton extends Button {
         private String type = ButtonType.CLICK.getValue();
         private String key;
@@ -84,6 +94,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 子按钮
+     */
     public static class SubButton extends Button {
         private Button[] sub_button;
 
@@ -140,6 +153,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 主按钮
+     */
     public static class MainButton {
         private Button[] button;
 
@@ -159,6 +175,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 按钮类型枚举类
+     */
     public enum ButtonType {
         VIEW("view"), CLICK("click");
 

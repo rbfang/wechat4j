@@ -5,6 +5,9 @@ import wechat4j.support.bean.AccessToken;
 
 import java.util.Date;
 
+/**
+ * Access token handler
+ */
 public class AccessTokenHandler implements
         IAccessTokenHandler,
         HttpResponseCode,

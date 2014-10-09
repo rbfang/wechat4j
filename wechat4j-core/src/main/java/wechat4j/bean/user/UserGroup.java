@@ -5,6 +5,7 @@ package wechat4j.bean.user;
  *
  * @author renbin.fang.
  * @date 2014/8/22.
+ * @see [http://mp.weixin.qq.com/wiki/index.php?title=分组管理接口]
  */
 public class UserGroup extends Group {
     private Group group;

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.InputStream;
 
 /**
- * EventHandler
+ * 事件消息处理器
  *
  * @author renbin.fang.
  * @date 2014/8/27.
@@ -29,6 +29,12 @@ public class EventMessageHandler extends AbstractReceivingMessageHandler {
     @Override
     protected String getClassName() {
         return getClass().getName();
+    }
+
+
+    @Override
+    public Message getMessage(InputStream inputStream) {
+        return getMessageFromInputStream(inputStream);
     }
 
     /**
@@ -92,10 +98,5 @@ public class EventMessageHandler extends AbstractReceivingMessageHandler {
     private CustomMenuEventMessage getViewEventMessage(Message message) {
         return new CustomMenuEventMessage((EventMessage) message,
                 xmlReader.getString("EventKey"));
-    }
-
-    @Override
-    public Message getMessage(InputStream inputStream) {
-        return getMessageFromInputStream(inputStream);
     }
 }

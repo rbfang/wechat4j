@@ -5,7 +5,7 @@ import wechat4j.message.event.CustomMenuEventMessage;
 import wechat4j.message.event.EventMessage;
 import wechat4j.message.event.LocationEventMessage;
 import wechat4j.message.event.ScanEventMessage;
-import wechat4j.message.handler.AbstractReceiveMessageHandler;
+import wechat4j.message.handler.AbstractReceivingMessageHandler;
 import wechat4j.message.handler.EventMessageHandler;
 
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import java.io.InputStream;
  * @date 2014/8/27.
  */
 public class EventMessageHandlerTest {
-    private AbstractReceiveMessageHandler messageHandler = new EventMessageHandler();
+    private AbstractReceivingMessageHandler messageHandler = new EventMessageHandler();
 
     @Test
     public void getSubscribeMessage() {

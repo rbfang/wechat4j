@@ -3,6 +3,8 @@ package wechat4j.support.bean;
 import java.io.Serializable;
 
 /**
+ * AuthToken
+ *
  * @author renbin.fang.
  * @date 2014/8/24.
  */

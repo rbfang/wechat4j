@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * SendMessageHandler
+ * 生成被动响应消息实现类
  *
  * @author renbin.fang.
  * @date 2014/8/22.
@@ -22,6 +22,7 @@ public class SendMessageHandler implements ISendMessageHandler {
     private final static String MSG_END = "]]>";
 
     {
+        // 载入回复消息模板
         try {
             replyTemplate = new XMLConfiguration(getClass().getResource(TEMPLATE_PATH).getFile());
         } catch (ConfigurationException e) {
@@ -95,6 +96,12 @@ public class SendMessageHandler implements ISendMessageHandler {
                 .replace("${Article}", generateArticles(newsMessageList));
     }
 
+    /**
+     * 生成文章xml格式，可以有一篇或多篇
+     *
+     * @param newsMessageList 新闻列表      ​
+     * @return xml格式的新闻列表
+     */
     private String generateArticles(List<NewsMessage> newsMessageList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (NewsMessage newsMessage : newsMessageList) {
