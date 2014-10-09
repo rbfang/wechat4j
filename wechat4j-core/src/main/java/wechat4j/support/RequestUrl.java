@@ -5,6 +5,7 @@ public interface RequestUrl {
 
     String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}";
     String CUSTOM_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=${ACCESS_TOKEN}";
+
     String MENU_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${ACCESS_TOKEN}";
     String MENU_QUERY_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=${ACCESS_TOKEN}";
     String MENU_DELETE_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=${ACCESS_TOKEN}";

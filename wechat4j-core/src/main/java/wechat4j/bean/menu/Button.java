@@ -5,17 +5,27 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Button
+ * Button，自定义菜单按钮封装bean。
  *
  * @author renbin.fang.
  * @date 2014/8/22.
+ * @see //http://mp.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%88%9B%E5%BB%BA%E6%8E%A5%E5%8F%A3
  */
 public class Button implements Serializable {
+    /**
+     * 按钮名称
+     */
     private String name;
 
+    /**
+     * 无参构造
+     */
     public Button() {
     }
 
+    /**
+     * 查看类型的按钮
+     */
     public static class ViewButton extends Button {
         private String type = ButtonType.VIEW.getValue();
         private String url;
@@ -51,6 +61,9 @@ public class Button implements Serializable {
     }
 
 
+    /**
+     * 点击类型按钮
+     */
     public static class ClickButton extends Button {
         private String type = ButtonType.CLICK.getValue();
         private String key;
@@ -84,6 +97,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 菜单子按钮
+     */
     public static class SubButton extends Button {
         private Button[] sub_button;
 
@@ -112,16 +128,10 @@ public class Button implements Serializable {
         }
 
         /**
-         * 获取实例数量
-         *
-         * @return
+         * 获取按钮数量
          */
-        public int getSizeOfInstance() {
-            return this.sizeOfInstance;
-        }
-
         public int size() {
-            return this.sub_button.length;
+            return this.sizeOfInstance;
         }
 
         public Button[] getSub_button() {
@@ -140,6 +150,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 主菜单按钮，包括：一级菜单按钮和二级菜单的按钮
+     */
     public static class MainButton {
         private Button[] button;
 
@@ -159,6 +172,9 @@ public class Button implements Serializable {
         }
     }
 
+    /**
+     * 按钮类型
+     */
     public enum ButtonType {
         VIEW("view"), CLICK("click");
 

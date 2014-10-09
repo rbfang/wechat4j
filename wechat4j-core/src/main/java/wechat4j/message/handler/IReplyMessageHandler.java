@@ -11,7 +11,7 @@ import java.util.List;
  * @author renbin.fang.
  * @date 2014/8/22.
  */
-public interface ISendMessageHandler {
+public interface IReplyMessageHandler {
     String generateTextMessage(String content, Message message);
 
     String generateImageMessage(String mediaId, Message message);

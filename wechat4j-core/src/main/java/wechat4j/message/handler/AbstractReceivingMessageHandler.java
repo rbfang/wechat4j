@@ -11,14 +11,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * IReceiveMessageOperator
+ * <p>Receiving message handler abstract class.</p>
+ * <p>Few steps to handle new messages.</p>
+ * <p>
+ * step1. Loading input stream into {@link org.apache.commons.configuration.XMLConfiguration}.<br/>
+ * step2. Getting message header which is every message has.<br/>
+ * step3. Invoking method which can handle the type of message.<br/>
+ * step3. Return {@link wechat4j.message.Message}.<br/>
+ * </p>
  *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
 public abstract class AbstractReceivingMessageHandler implements MessageHandler {
     /**
-     * Parse Message from xml stream template method
+     * Parse Message from xml stream
      *
      * @param inputStream
      * @return Subclass of {@link wechat4j.message.Message}

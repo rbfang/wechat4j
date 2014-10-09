@@ -6,10 +6,11 @@ import wechat4j.message.*;
 import java.io.InputStream;
 
 /**
- * Common message handler
+ * 接收的普通消息处理器
  *
  * @author renbin.fang.
  * @date 2014/8/21.
+ * @see /http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E6%94%B6%E6%99%AE%E9%80%9A%E6%B6%88%E6%81%AF
  */
 public class CommonMessageHandler extends AbstractReceivingMessageHandler {
     private static XMLConfiguration xmlReader;

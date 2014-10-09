@@ -3,7 +3,7 @@ package wechat4j.bean.menu;
 import java.util.Arrays;
 
 /**
- * Menu
+ * 菜单bean
  *
  * @author renbin.fang.
  * @date 2014/9/2.
