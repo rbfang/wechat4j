@@ -5,7 +5,7 @@ import wechat4j.WechatTestBase;
 import wechat4j.support.AccessTokenHandler;
 import wechat4j.support.bean.AccessToken;
 
-@Test(enabled = false)
+//@Test(enabled = true)
 public class AccessTokenHandlerTest extends WechatTestBase {
     private AccessTokenHandler accessTokenHandler = (AccessTokenHandler) handlerMap.get(AccessTokenHandler.class.getName());
 

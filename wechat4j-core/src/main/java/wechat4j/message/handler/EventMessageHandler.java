@@ -33,6 +33,12 @@ public class EventMessageHandler extends AbstractReceivingMessageHandler {
         return getClass().getName();
     }
 
+
+    @Override
+    public Message getMessage(InputStream inputStream) {
+        return getMessageFromInputStream(inputStream);
+    }
+
     /**
      * 关注事件
      */
@@ -94,10 +100,5 @@ public class EventMessageHandler extends AbstractReceivingMessageHandler {
     private CustomMenuEventMessage getViewEventMessage(Message message) {
         return new CustomMenuEventMessage((EventMessage) message,
                 xmlReader.getString("EventKey"));
-    }
-
-    @Override
-    public Message getMessage(InputStream inputStream) {
-        return getMessageFromInputStream(inputStream);
     }
 }

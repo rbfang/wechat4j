@@ -38,7 +38,7 @@ public class PropertiesReader {
      */
     public void load() {
         String resourcePath = this.getClass().getResource(propertiesPath).getFile();
-        File propertiesFile = new File(getClass().getResource(propertiesPath).getFile());
+        File propertiesFile = new File(resourcePath);
         if (!propertiesFile.exists()) {
             logger.error("properties file does not exist. path=" + propertiesPath);
 
@@ -47,7 +47,6 @@ public class PropertiesReader {
 
         this.properties = new Properties();
         try {
-            //TODO needs to improve
             FileInputStream fileInputStream = new FileInputStream(propertiesFile);
             this.properties.load(fileInputStream);
             logger.info("Success to load properties file. path=" + propertiesPath);
@@ -73,7 +72,6 @@ public class PropertiesReader {
         } else {
             value = null;
         }
-
 
         return value;
     }

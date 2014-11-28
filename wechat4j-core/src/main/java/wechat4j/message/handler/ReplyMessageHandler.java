@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * <p>发送消息：被动响应消息生成器</p>
  * <p>使用XML模板来进行替换占位符生成符合微信服务器收取信息的格式</p>
- *
  * @author renbin.fang.
  * @date 2014/8/22.
  * @see /http://mp.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E8%A2%AB%E5%8A%A8%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF
@@ -24,7 +23,7 @@ public class ReplyMessageHandler implements IReplyMessageHandler {
     private final static String MSG_END = "]]>";
 
     {
-        // 载入模板
+        // 载入回复消息模板
         try {
             replyTemplate = new XMLConfiguration(getClass().getResource(TEMPLATE_PATH).getFile());
         } catch (ConfigurationException e) {
@@ -101,6 +100,12 @@ public class ReplyMessageHandler implements IReplyMessageHandler {
                 .replace("${Article}", generateArticles(newsMessageList));
     }
 
+    /**
+     * 生成文章xml格式，可以有一篇或多篇
+     *
+     * @param newsMessageList 新闻列表      ​
+     * @return xml格式的新闻列表
+     */
     private String generateArticles(List<NewsMessage> newsMessageList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (NewsMessage newsMessage : newsMessageList) {

@@ -85,7 +85,6 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
      * @param method
      * @return true or false
      */
-    //TODO 这里判断不够明确清楚。使用正则表达式来判断应该不错。
     private boolean isMessageMethod(String keyWordOfMethod, Method method) {
         return method.getName().startsWith("get")
                 && StringUtils.containsIgnoreCase(method.getName(), keyWordOfMethod);
@@ -111,7 +110,7 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
     /**
      * Get method header from input stream
      *
-     * @return
+     * @return {@link wechat4j.message.Message}
      */
     protected Message getMessageHeader() {
         return new Message(
@@ -126,7 +125,7 @@ public abstract class AbstractReceivingMessageHandler implements MessageHandler 
      * Get event message header
      *
      * @param message {@link wechat4j.message.Message}
-     * @return
+     * @return {@link wechat4j.message.event.EventMessage}
      */
     protected EventMessage getEventMessageHeader(Message message) {
         String event = getXmlReader().getString("Event");

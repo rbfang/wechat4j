@@ -29,12 +29,30 @@ public class CommonMessageHandler extends AbstractReceivingMessageHandler {
         return getClass().getName();
     }
 
+
+    @Override
+    public Message getMessage(InputStream inputStream) {
+        return getMessageFromInputStream(inputStream);
+    }
+
+    /**
+     * 文本消息
+     *
+     * @param message
+     * @return
+     */
     private TextMessage getTextMessage(Message message) {
         return new TextMessage(
                 xmlReader.getString("Content"),
                 message);
     }
 
+    /**
+     * 图片消息
+     *
+     * @param message
+     * @return
+     */
     private ImageMessage getImageMessage(Message message) {
         return new ImageMessage(
                 xmlReader.getString("PicUrl"),
@@ -42,6 +60,12 @@ public class CommonMessageHandler extends AbstractReceivingMessageHandler {
                 message);
     }
 
+    /**
+     * 音频消息
+     *
+     * @param message
+     * @return
+     */
     private VoiceMessage getVoiceMessage(Message message) {
         //TODO 添加语音识别结果
         return new VoiceMessage(
@@ -49,6 +73,12 @@ public class CommonMessageHandler extends AbstractReceivingMessageHandler {
                 message);
     }
 
+    /**
+     * 视频消息
+     *
+     * @param message
+     * @return
+     */
     private VideoMessage getVideoMessage(Message message) {
         return new VideoMessage(
                 xmlReader.getString("MediaId"),
@@ -56,6 +86,12 @@ public class CommonMessageHandler extends AbstractReceivingMessageHandler {
                 message);
     }
 
+    /**
+     * 地理位置消息
+     *
+     * @param message
+     * @return
+     */
     private LocationMessage getLocationMessage(Message message) {
         return new LocationMessage(
                 xmlReader.getString("LocationX"),
@@ -65,16 +101,17 @@ public class CommonMessageHandler extends AbstractReceivingMessageHandler {
                 message);
     }
 
+    /**
+     * 链接消息
+     *
+     * @param message
+     * @return
+     */
     private LinkMessage getLinkMessage(Message message) {
         return new LinkMessage(
                 xmlReader.getString("Title"),
                 xmlReader.getString("Description"),
                 xmlReader.getString("Url"),
                 message);
-    }
-
-    @Override
-    public Message getMessage(InputStream inputStream) {
-        return getMessageFromInputStream(inputStream);
     }
 }

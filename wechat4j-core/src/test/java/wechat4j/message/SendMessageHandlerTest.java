@@ -1,11 +1,10 @@
 package wechat4j.message;
 
 import org.testng.annotations.Test;
-import wechat4j.message.handler.ISendMessageHandler;
-import wechat4j.message.handler.MessageHandlerFactory;
-import wechat4j.message.handler.SendMessageHandler;
+import wechat4j.message.handler.IReplyMessageHandler;
+import wechat4j.message.handler.ReplyMessageHandler;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,25 +16,25 @@ import java.util.List;
 public class SendMessageHandlerTest {
     private Message message = new Message("toUserName", "fromUserName", "123123123", "text");
 
-    private static ISendMessageHandler sendMessageHandler = new SendMessageHandler();
+    private static IReplyMessageHandler replyMessageHandler = new ReplyMessageHandler();
 
     @Test
     public void generateTextMessage() {
-        System.out.println(sendMessageHandler.generateTextMessage(
+        System.out.println(replyMessageHandler.generateTextMessage(
                 "Hello,", message));
     }
 
     @Test
     public void generateImageMessage() {
         message.setMsgType(Message.SendType.IMAGE.getValue());
-        System.out.println(sendMessageHandler.generateImageMessage(
+        System.out.println(replyMessageHandler.generateImageMessage(
                 "wxd30e31bfd8c207ee", message));
     }
 
     @Test
     public void generateVoiceMessage() {
         message.setMsgType(Message.SendType.VOICE.getValue());
-        System.out.println(sendMessageHandler.generateVoiceMessage(
+        System.out.println(replyMessageHandler.generateVoiceMessage(
                 "wxd30e31bfd8c207ee", message));
     }
 
@@ -47,7 +46,7 @@ public class SendMessageHandlerTest {
                 title = "title of video",
                 description = "this is a video.";
 
-        System.out.println(sendMessageHandler.generateVideoMessage(
+        System.out.println(replyMessageHandler.generateVideoMessage(
                 mediaId,
                 title,
                 description,
@@ -64,7 +63,7 @@ public class SendMessageHandlerTest {
                 hQMusicUrl = "http://music.com/the_sound_of_slience_hq.mp3",
                 thumbMediaId = "wxd30e31bfd8c207ee";
 
-        System.out.println(sendMessageHandler.generateMusicMessage(
+        System.out.println(replyMessageHandler.generateMusicMessage(
                 title,
                 description,
                 musicUrl,
@@ -77,13 +76,14 @@ public class SendMessageHandlerTest {
     public void generateNewsMessage() {
         message.setMsgType(Message.SendType.NEWS.getValue());
 
-        List<NewsMessage> newsMessageList = new ArrayList<NewsMessage>();
-        newsMessageList.add(new NewsMessage("title1", "description", "picUrl", "newsUrl"));
-        newsMessageList.add(new NewsMessage("title2", "description", "picUrl", "newsUrl"));
-        newsMessageList.add(new NewsMessage("title3", "description", "picUrl", "newsUrl"));
-        newsMessageList.add(new NewsMessage("title4", "description", "picUrl", "newsUrl"));
+        List<NewsMessage> newsMessageList = Arrays.asList(
+                new NewsMessage("title1", "description", "picUrl", "newsUrl"),
+                new NewsMessage("title2", "description", "picUrl", "newsUrl"),
+                new NewsMessage("title3", "description", "picUrl", "newsUrl"),
+                new NewsMessage("title4", "description", "picUrl", "newsUrl"));
 
-        System.out.println(sendMessageHandler.generateNewsMessage(
+
+        System.out.println(replyMessageHandler.generateNewsMessage(
                 newsMessageList,
                 message));
 

@@ -18,13 +18,13 @@ public class Button implements Serializable {
     private String name;
 
     /**
-     * 无参构造
+     * Constructor
      */
     public Button() {
     }
 
     /**
-     * 查看类型的按钮
+     * 跳转URL按钮
      */
     public static class ViewButton extends Button {
         private String type = ButtonType.VIEW.getValue();
@@ -63,6 +63,7 @@ public class Button implements Serializable {
 
     /**
      * 点击类型按钮
+     * 用户点击click类型按钮后，微信服务器会通过消息接口推送消息类型为event
      */
     public static class ClickButton extends Button {
         private String type = ButtonType.CLICK.getValue();
@@ -173,7 +174,7 @@ public class Button implements Serializable {
     }
 
     /**
-     * 按钮类型
+     * 按钮类型枚举类
      */
     public enum ButtonType {
         VIEW("view"), CLICK("click");

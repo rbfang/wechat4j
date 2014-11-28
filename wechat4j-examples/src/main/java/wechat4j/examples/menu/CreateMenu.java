@@ -6,6 +6,8 @@ import wechat4j.WechatFactory;
 import wechat4j.bean.menu.Button;
 
 /**
+ * CreateMenu
+ *
  * @author renbin.fang.
  * @date 2014/9/17.
  */
