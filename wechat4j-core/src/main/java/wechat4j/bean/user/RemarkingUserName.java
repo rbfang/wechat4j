@@ -1,14 +1,20 @@
 package wechat4j.bean.user;
 
 /**
- * RemarkingUserName
+ * 为用户设置备注名称
  *
  * @author renbin.fang.
  * @date 2014/9/3.
  * @see [http://mp.weixin.qq.com/wiki/index.php?title=设置用户备注名接口]
  */
 public class RemarkingUserName {
+    /**
+     * 用户标识
+     */
     private String openid;
+    /**
+     * 新的备注名，长度必须小于30字符
+     */
     private String remark;
 
     /**

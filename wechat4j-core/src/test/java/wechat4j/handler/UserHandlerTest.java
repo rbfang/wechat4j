@@ -13,7 +13,7 @@ import wechat4j.handler.impl.UserHandler;
  * @author renbin.fang.
  * @date 2014/9/3.
  */
-@Test(enabled = false)
+@Test(enabled = true)
 public class UserHandlerTest extends WechatTestBase{
     private IUserHandler userHandler = (IUserHandler) handlerMap.get(UserHandler.class.getName());
 

@@ -9,12 +9,13 @@ import java.io.File;
 import java.util.List;
 
 /**
- * 生成被动响应消息实现类
- *
+ * <p>发送消息：被动响应消息生成器</p>
+ * <p>使用XML模板来进行替换占位符生成符合微信服务器收取信息的格式</p>
  * @author renbin.fang.
  * @date 2014/8/22.
+ * @see /http://mp.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E8%A2%AB%E5%8A%A8%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF
  */
-public class SendMessageHandler implements ISendMessageHandler {
+public class ReplyMessageHandler implements IReplyMessageHandler {
     private static final String TEMPLATE_PATH = "/wechat-template.xml";
     private static XMLConfiguration replyTemplate;
 
@@ -31,20 +32,24 @@ public class SendMessageHandler implements ISendMessageHandler {
     }
 
     /**
-     * Generate message header
+     * <p>生成回复消息的头部，所有回复信息共有的信息<p/>
+     * <p>包括：ToUserName, FromUserName, CreateTime, MsgType </p>
      *
+     * @param xmlPath
      * @param message
      * @return
      */
-    private String generateTemplate(String path, Message message) {
-        return replyTemplate.getString(path)
+    private String generateTemplate(String xmlPath, Message message) {
+        return replyTemplate.getString(xmlPath)
                 .replace("${ToUserName}", addLabel(message.getToUserName()))
                 .replace("${FromUserName}", addLabel(message.getFromUserName()))
                 .replace("${CreateTime}", addLabel(message.getCreateTime()))
                 .replace("${MsgType}", addLabel(message.getMsgType()));
-
     }
 
+    /**
+     * 将内容放到CDATA 区段
+     */
     private String addLabel(String content) {
         return MSG_START + content + MSG_END;
     }
@@ -90,7 +95,6 @@ public class SendMessageHandler implements ISendMessageHandler {
 
     @Override
     public String generateNewsMessage(List<NewsMessage> newsMessageList, Message message) {
-
         return generateTemplate("NewsMessage.Common", message)
                 .replace("${ArticleCount}", String.valueOf(newsMessageList.size()))
                 .replace("${Article}", generateArticles(newsMessageList));

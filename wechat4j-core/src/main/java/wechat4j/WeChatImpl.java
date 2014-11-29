@@ -58,17 +58,17 @@ public class WeChatImpl extends AbstractWechat {
 
     @Override
     public String generateTextMessage(String content, Message message) {
-        return sendMessageHandler.generateTextMessage(content, message);
+        return replyMessageHandler.generateTextMessage(content, message);
     }
 
     @Override
     public String generateImageMessage(String mediaId, Message message) {
-        return sendMessageHandler.generateImageMessage(mediaId, message);
+        return replyMessageHandler.generateImageMessage(mediaId, message);
     }
 
     @Override
     public String generateVoiceMessage(String mediaId, Message message) {
-        return sendMessageHandler.generateVoiceMessage(mediaId, message);
+        return replyMessageHandler.generateVoiceMessage(mediaId, message);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class WeChatImpl extends AbstractWechat {
                                        String description,
                                        Message message) {
 
-        return sendMessageHandler.generateVideoMessage(mediaId, title, description, message);
+        return replyMessageHandler.generateVideoMessage(mediaId, title, description, message);
     }
 
     @Override
@@ -88,12 +88,12 @@ public class WeChatImpl extends AbstractWechat {
                                        String thumbMediaId,
                                        Message message) {
 
-        return sendMessageHandler.generateMusicMessage(title, description, musicUrl, hQMusicUrl, thumbMediaId, message);
+        return replyMessageHandler.generateMusicMessage(title, description, musicUrl, hQMusicUrl, thumbMediaId, message);
     }
 
     @Override
     public String generateNewsMessage(List<NewsMessage> newsMessageList, Message message) {
-        return sendMessageHandler.generateNewsMessage(newsMessageList, message);
+        return replyMessageHandler.generateNewsMessage(newsMessageList, message);
     }
 
     @Override

@@ -5,12 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Button
+ * Button，自定义菜单按钮封装bean。
  *
  * @author renbin.fang.
  * @date 2014/8/22.
+ * @see //http://mp.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%88%9B%E5%BB%BA%E6%8E%A5%E5%8F%A3
  */
 public class Button implements Serializable {
+    /**
+     * 按钮名称
+     */
     private String name;
 
     /**
@@ -58,7 +62,7 @@ public class Button implements Serializable {
 
 
     /**
-     * 点击按钮
+     * 点击类型按钮
      * 用户点击click类型按钮后，微信服务器会通过消息接口推送消息类型为event
      */
     public static class ClickButton extends Button {
@@ -95,7 +99,7 @@ public class Button implements Serializable {
     }
 
     /**
-     * 子按钮
+     * 菜单子按钮
      */
     public static class SubButton extends Button {
         private Button[] sub_button;
@@ -125,16 +129,10 @@ public class Button implements Serializable {
         }
 
         /**
-         * 获取实例数量
-         *
-         * @return
+         * 获取按钮数量
          */
-        public int getSizeOfInstance() {
-            return this.sizeOfInstance;
-        }
-
         public int size() {
-            return this.sub_button.length;
+            return this.sizeOfInstance;
         }
 
         public Button[] getSub_button() {
@@ -154,7 +152,7 @@ public class Button implements Serializable {
     }
 
     /**
-     * 主按钮
+     * 主菜单按钮，包括：一级菜单按钮和二级菜单的按钮
      */
     public static class MainButton {
         private Button[] button;

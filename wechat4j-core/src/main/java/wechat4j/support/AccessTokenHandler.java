@@ -6,7 +6,7 @@ import wechat4j.support.bean.AccessToken;
 import java.util.Date;
 
 /**
- * Access token handler
+ * 获取access token
  */
 public class AccessTokenHandler implements
         IAccessTokenHandler,

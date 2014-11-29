@@ -6,6 +6,9 @@ import wechat4j.bean.user.Group;
 
 import java.util.List;
 
+/**
+ * GetAllGroups
+ */
 public class GetAllGroups {
     public static void main(String[] args) {
         Wechat wechat = WechatFactory.newInstance();

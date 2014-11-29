@@ -9,10 +9,12 @@ import java.awt.*;
 import java.io.InputStream;
 
 /**
- * 事件消息处理器
+ * <p>事件消息处理器</p>
+ * <p>将接收到的信息封装成java bean返回，方便处理</p>
  *
  * @author renbin.fang.
  * @date 2014/8/27.
+ * @see /http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E6%94%B6%E4%BA%8B%E4%BB%B6%E6%8E%A8%E9%80%81
  */
 public class EventMessageHandler extends AbstractReceivingMessageHandler {
     private static XMLConfiguration xmlReader;

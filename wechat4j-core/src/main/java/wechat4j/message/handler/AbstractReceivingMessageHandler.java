@@ -11,17 +11,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 接收消息处理器抽象类，由
- * 1、普通消息 {@link wechat4j.message.handler.CommonMessageHandler}
- * 2、事件消息 {@link wechat4j.message.handler.EventMessageHandler}
- * 来实现，实现思路先判断事件类型，然后再根据消息类型来调用可以处理该类型消息的方法。
+ * <p>Receiving message handler abstract class.</p>
+ * <p>Few steps to handle new messages.</p>
+ * <p>
+ * step1. Loading input stream into {@link org.apache.commons.configuration.XMLConfiguration}.<br/>
+ * step2. Getting message header which is every message has.<br/>
+ * step3. Invoking method which can handle the type of message.<br/>
+ * step3. Return {@link wechat4j.message.Message}.<br/>
+ * </p>
  *
  * @author renbin.fang.
  * @date 2014/8/22.
  */
 public abstract class AbstractReceivingMessageHandler implements MessageHandler {
     /**
-     * Parse Message from xml stream template method
+     * Parse Message from xml stream
      *
      * @param inputStream
      * @return Subclass of {@link wechat4j.message.Message}

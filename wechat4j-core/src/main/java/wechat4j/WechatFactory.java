@@ -1,7 +1,6 @@
 package wechat4j;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
 
 /**
  * WechatFactory
@@ -10,12 +9,13 @@ import java.lang.reflect.Constructor;
  * @date 2014/9/4.
  */
 public class WechatFactory implements Serializable {
-    private static Wechat wechat = new WeChatImpl();
+    private static Wechat WECHAT = new WeChatImpl();
 
     public static Wechat newInstance() {
-        return wechat;
+        return WECHAT;
     }
 
+    //private constructor prevents instantiation
     private WechatFactory() {
         throw new Error("Do not instance :(");
     }

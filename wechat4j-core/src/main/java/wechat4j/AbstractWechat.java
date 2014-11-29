@@ -4,10 +4,10 @@ import org.apache.commons.lang.StringUtils;
 import wechat4j.handler.IMenuHandler;
 import wechat4j.handler.IUserGroupHandler;
 import wechat4j.handler.IUserHandler;
-import wechat4j.message.handler.ISendMessageHandler;
+import wechat4j.message.handler.IReplyMessageHandler;
 import wechat4j.message.handler.MessageHandler;
 import wechat4j.message.handler.MessageHandlerFactory;
-import wechat4j.message.handler.SendMessageHandler;
+import wechat4j.message.handler.ReplyMessageHandler;
 import wechat4j.support.Configuration;
 import wechat4j.support.ConfigurationBase;
 
@@ -26,7 +26,7 @@ import java.util.*;
 abstract class AbstractWechat implements Wechat {
     protected static MessageHandler commonMessageHandler;
     protected static MessageHandler eventMessageHandler;
-    protected static ISendMessageHandler sendMessageHandler;
+    protected static IReplyMessageHandler replyMessageHandler;
 
     protected static IMenuHandler menuHandler;
     protected static IUserGroupHandler userGroupHandler;
@@ -74,7 +74,7 @@ abstract class AbstractWechat implements Wechat {
 
             commonMessageHandler = MessageHandlerFactory.getMessageHandler("COMMON");
             eventMessageHandler = MessageHandlerFactory.getMessageHandler("EVENT");
-            sendMessageHandler = new SendMessageHandler();
+            replyMessageHandler = new ReplyMessageHandler();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -147,7 +147,7 @@ abstract class AbstractWechat implements Wechat {
     }
 
     /**
-     * Delete package string
+     * Get class name
      *
      * @param clazzName
      * @return
