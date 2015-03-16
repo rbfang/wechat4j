@@ -132,6 +132,39 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
         </plugins>
+=======
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+>>>>>>> 142e382dad62f83a3ceb08aff267008129e7b4a2
     </build>
+
+    <scm>
+        <connection>scm:git:git@github.com:fangrenbin/wechat4j.git</connection>
+        <developerConnection>scm:git:git@github.com:fangrenbin/wechat4j.git</developerConnection>
+        <url>https://github.com/fangrenbin/wechat4j</url>
+        <tag>HEAD</tag>
+    </scm>
 </project>
