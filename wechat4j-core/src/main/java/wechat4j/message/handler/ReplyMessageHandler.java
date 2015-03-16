@@ -2,6 +2,7 @@ package wechat4j.message.handler;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.lang.StringUtils;
 import wechat4j.message.Message;
 import wechat4j.message.NewsMessage;
 
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * <p>发送消息：被动响应消息生成器</p>
  * <p>使用XML模板来进行替换占位符生成符合微信服务器收取信息的格式</p>
+ *
  * @author renbin.fang.
  * @date 2014/8/22.
  * @see /http://mp.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E8%A2%AB%E5%8A%A8%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF
@@ -22,10 +24,40 @@ public class ReplyMessageHandler implements IReplyMessageHandler {
     private final static String MSG_START = "<![CDATA[";
     private final static String MSG_END = "]]>";
 
+    private String templatePath;
+
     {
-        // 载入回复消息模板
+
+    }
+
+    /**
+     * Constructor
+     * <p/>
+     * //TODO CONSTRUCTOR HAS SAME CODE HERE, NEED TO BE REMOVED
+     */
+    public ReplyMessageHandler() {
         try {
             replyTemplate = new XMLConfiguration(getClass().getResource(TEMPLATE_PATH).getFile());
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Constructor
+     * //TODO CONSTRUCTOR HAS SAME CODE HERE, NEED TO BE REMOVED
+     *
+     * @param templatePath
+     */
+    public ReplyMessageHandler(String templatePath) {
+        this.templatePath = templatePath;
+        // 载入回复消息模板
+
+        if (StringUtils.isEmpty(this.templatePath)) {
+            this.templatePath = TEMPLATE_PATH;
+        }
+        try {
+            replyTemplate = new XMLConfiguration(getClass().getResource(templatePath).getFile());
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }
@@ -103,7 +135,7 @@ public class ReplyMessageHandler implements IReplyMessageHandler {
     /**
      * 生成文章xml格式，可以有一篇或多篇
      *
-     * @param newsMessageList 新闻列表      ​
+     * @param newsMessageList 新闻列表
      * @return xml格式的新闻列表
      */
     private String generateArticles(List<NewsMessage> newsMessageList) {

@@ -4,9 +4,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <!--<parent>-->
-        <!--<groupId>name.frb.wechat4j</groupId>-->
-        <!--<artifactId>wechat4j</artifactId>-->
-        <!--<version>1.0.0-SNAPSHOT</version>-->
+    <!--<groupId>name.frb.wechat4j</groupId>-->
+    <!--<artifactId>wechat4j</artifactId>-->
+    <!--<version>1.0.0-SNAPSHOT</version>-->
     <!--</parent>-->
 
     <groupId>name.frb.wechat4j</groupId>
@@ -133,7 +133,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -147,9 +146,22 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.1</version>
                 <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 </project>
